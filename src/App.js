@@ -1,18 +1,17 @@
-import logo from "./logo.svg";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import HomePage from "./Pages/HomePage.js";
+import Lobby from "./Pages/Lobby";
+import Game from "./Pages/Game";
 import "./App.css";
-
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          <font size="32">
-            <b>Bohnanza</b>
-          </font>
-        </p>
-      </header>
-    </div>
+  <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/lobby" element={<Lobby />} />
+          <Route path="/game" element={<Game />} />
+        </Routes>
+  </BrowserRouter>
   );
 }
 
