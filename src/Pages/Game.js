@@ -1,7 +1,9 @@
 import React from 'react';
-
+import Card from '../classes/Card.js';
+import "./Game.css";
 function Game ()
 {
+    var cards = [<Card type = "coffee" />,<Card type = "blue" />]
     return (
         <div className="Game">
             <header className="Game-header">
@@ -11,7 +13,8 @@ function Game ()
                     </font>
                 </p>
             </header>
-        </div>
+        </div>,
+        cards.map((Card) => <div>{Card}</div>)
     );
 }
 
