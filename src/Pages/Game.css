@@ -1,6 +1,8 @@
 .Game
 {
-    background: lightblue;
-    background-color: gray;
+    background: rgb(94, 108, 112);
     text-align: left;
+    width: fill;
+    height: fill;
+    position: absolute;
 }

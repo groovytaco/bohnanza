@@ -1,23 +1,13 @@
 .Card
 {
-    background-color: gray;
-    box-sizing: content-box;
-    margin-left: 0px;
-    left: 50;
-    bottom: 50;
-    width: 200px;
-    height: 200px;
-    text-align: left;
+    position: absolute;
+    text-align: center;
 }
-.card-image{
+.bean-image{
     box-sizing: border-box;
-    border: 5px solid #fde32c;
     position: relative;
-    left: 0;
-    bottom: 0;
-    width: 7.5vw;
-    height: 17.75vh;
-    font-size: calc(8px + 2vmin);
+    width: 130px;
+    height: 200px;
   }
 
   
