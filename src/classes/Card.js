@@ -53,20 +53,19 @@ function Card(props) {
             break;
         default:
     }
-
     return (
-        <div className='Card' style={{left: xPos, top: yPos,}}>
-            <img className="bean-image"
-                src={image}
-                alt=""
-                style={{
-                    borderStyle: "solid",
-                    borderColor: "#fde32c",
-                    borderWidth: "5px",
-                    borderRadius: "5px"
-                }}>
-            </img>
-        </div>
+            <div  className='Card' style={{ left: xPos, top: yPos, }}>
+                <img className="bean-image"
+                    src={image}
+                    alt=""
+                    style={{
+                        borderStyle: "solid",
+                        borderColor: "#fde32c",
+                        borderWidth: "5px",
+                        borderRadius: "5px"
+                    }}>
+                </img>
+            </div> 
     );
 }
 
