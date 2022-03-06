@@ -1,0 +1,10 @@
+.InfoCard{
+    position: relative;
+    margin-bottom: 20px;
+    margin-left: 85%;
+    right: 0;
+    top: 0;
+    width: 15vw;
+    height: 10vw;
+    background-color: gray;
+}

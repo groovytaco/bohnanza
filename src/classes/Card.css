@@ -1,0 +1,14 @@
+.Card
+{
+    position: absolute;
+    width: fit-content;
+    height: fit-content;
+}
+.bean-image{
+    position: absolute;
+    width: 6.5vw;
+    height: 10vw;
+    border-style: none;
+  }
+
+  

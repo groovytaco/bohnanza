@@ -1,0 +1,13 @@
+.Deck{
+    position: absolute;
+    left: 25%;
+    top: 5%;
+    width: fit-content;
+    height: fit-content;
+}
+
+.DeckImage{
+    position: absolute;
+    width: 7.8vw;
+    height: 12vw;
+}

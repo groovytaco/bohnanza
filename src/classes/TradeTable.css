@@ -1,0 +1,13 @@
+.TradeTable{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: fit-content;
+    height: fit-content;
+}
+
+.TableImage{
+    position: absolute;
+    width: 20.25vw;
+    height: 28.8vw;
+}
