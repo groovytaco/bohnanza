@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function Lobby() {
+function NotFound() {
   return (
     <>
-      <h1>Lobby</h1>
+      <h1>Not Found</h1>
       <h3>
         <Link to="/">Home Page</Link>
       </h3>
@@ -12,4 +12,4 @@ function Lobby() {
   );
 }
 
-export default Lobby;
+export default NotFound;
