@@ -23,8 +23,8 @@ function Game() {
                     position: "absolute",
                     right: 0,
                     bottom: 0,
-                    width: 80,
-                    height: 80
+                    width: "4vw",
+                    height: "4vw"
                 }}
             ></button>
         </div>

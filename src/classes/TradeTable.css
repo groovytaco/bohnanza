@@ -1,6 +1,5 @@
 .TradeTable{
     position: absolute;
-    scale: x;
     left: 0;
     top: 0;
     width: fit-content;
@@ -9,6 +8,6 @@
 
 .TableImage{
     position: absolute;
-    width: 450px;
-    height: 640px;
+    width: 20.25vw;
+    height: 28.8vw;
 }
