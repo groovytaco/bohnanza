@@ -1,14 +1,13 @@
-.Card
-{
+.Deck{
     position: absolute;
+    left: 25%;
+    top: 5%;
     width: fit-content;
     height: fit-content;
 }
-.bean-image{
+
+.DeckImage{
     position: absolute;
     width: 130px;
     height: 200px;
-    border-style: none;
-  }
-
-  
+}

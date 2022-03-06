@@ -14,7 +14,6 @@ import "./Card.css";
 
 function Card(props) {
     var image;
-    var highlighted = false;
     var xPos = props.x;
     var yPos = props.y;
     switch (props.type) {
@@ -59,7 +58,7 @@ function Card(props) {
                     src={image}
                     alt=""
                     style={{
-                        borderStyle: "solid",
+                        borderStyle: "none",
                         borderColor: "#fde32c",
                         borderWidth: "5px",
                         borderRadius: "5px"

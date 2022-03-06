@@ -1,0 +1,22 @@
+.BeanField{
+    position: absolute;
+    left: 50%;
+    bottom: 65%;
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+}
+
+.FieldImage{
+    position: absolute;
+    width: 300px;
+    height: 240px;
+}
+
+.leftCard{
+    position: absolute;
+}
+.rightCard{
+    position: absolute;
+}
