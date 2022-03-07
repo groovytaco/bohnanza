@@ -1,0 +1,14 @@
+.Active-game
+{
+    left: 0;
+    top: 0;
+    background: rgb(50, 99, 17);
+    width: stretch;
+    height: stretch;
+    position: absolute;
+}
+
+.Next-turn
+{
+    background-color: rgb(218, 194, 63);
+}

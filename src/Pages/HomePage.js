@@ -12,6 +12,9 @@ function HomePage() {
       <h3>
         <Link to="/party-zone">Party Zone</Link>
       </h3>
+      <h3>
+        <Link to="activeGame">activeGame</Link>
+      </h3>
     </>
   );
 }

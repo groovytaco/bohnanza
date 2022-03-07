@@ -1,12 +1,4 @@
 .Game
 {
-    background: rgb(50, 99, 17);
-    width: stretch;
-    height: stretch;
-    position: absolute;
-}
-
-.Next-turn
-{
-    background-color: rgb(218, 194, 63);
+    border-width: 0;
 }
