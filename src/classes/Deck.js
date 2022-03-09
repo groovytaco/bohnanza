@@ -64,6 +64,7 @@ function Deck(props) {
     }
 
     function deckClicked() {
+        
         if (props.gameStatus === "PlantSecondOrFlip2") {
             if (deck.length >= 0) {
                 setLeftBean(deck.at(deck.length - 1))

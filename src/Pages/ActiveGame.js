@@ -9,10 +9,6 @@ import "./ActiveGame.css";
 
 function ActiveGame() {
     const [gameStatus, setGameStatus] = useState('PlantSecondOrFlip2');
-    const changeGameStatus= (data) =>
-    {
-        setGameStatus(data);
-    }
     function nextTurn()
     {
         if(gameStatus=== "Flipped2Cards")
@@ -26,9 +22,10 @@ function ActiveGame() {
             <InfoCard/>
             <InfoCard/>
             <InfoCard/>
-            <Deck changeGameStatus = {changeGameStatus} gameStatus = {gameStatus}/>
+            <Deck changeGameStatus = {setGameStatus} gameStatus = {gameStatus}/>
             <TradeTable/>
-            <BeanField/>
+            <BeanField className="leftField" type="coffee" x="-7vw" y="4.5vw"/>
+            <BeanField className="rightField" type="cocoa" x=".5vw" y="4.5vw"/>
             <PlayerHand/>
             <h1>{gameStatus}</h1>
             <button className="Next-turn"

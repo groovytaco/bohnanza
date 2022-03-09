@@ -51,6 +51,7 @@ function Card(props) {
             image = coffee;
             break;
         default:
+            
     }
     return (
             <div  className='Card' style={{ left: xPos, top: yPos, }}>
