@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Card from "./Card";
 
 function Deck(props) {
+    //add all cards to deck
     let temp = [null];
     for (let i = 0; i < 24; i++) {
         temp.push("coffee");
@@ -38,6 +39,7 @@ function Deck(props) {
     for (let i = 0; i < 5; i++) {
         temp.push("cocoa");
     }
+    //shuffle deck
     for (let i = 0; i < 1000; i++) {
         let location1 = Math.floor((Math.random() * temp.length));
         let location2 = Math.floor((Math.random() * temp.length));
@@ -45,10 +47,13 @@ function Deck(props) {
         temp[location1] = temp[location2];
         temp[location2] = tmp;
     }
+
+    //initialize deck and both flipped beans
     const [deck, setDeck] = useState(temp);
     const [leftBean, setLeftBean] = useState("");
     const [rightBean, setRightBean] = useState("");
 
+    //initialize functions
     function shuffle(deckArray) {
         // for 1000 turns
         // switch the values of two random cards
@@ -64,7 +69,6 @@ function Deck(props) {
     }
 
     function deckClicked() {
-        
         if (props.gameStatus === "PlantSecondOrFlip2") {
             if (deck.length >= 0) {
                 setLeftBean(deck.at(deck.length - 1))
@@ -85,7 +89,7 @@ function Deck(props) {
 
     return (
         <div className="Deck" onClick={deckClicked}>
-            <img className="DeckImage" src={DeckImage} alt="DeckImage" />
+            <img id="DeckImage" src={DeckImage} alt="DeckImage" />
             <Card id="leftBean" type={leftBean} x="15vw" y="1vw" />
             <Card id="rightBean" type={rightBean} x="25vw" y="1vw" />
         </div>

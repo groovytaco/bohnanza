@@ -1,14 +1,14 @@
 .Active-game
 {
+    position: absolute;
     left: 0;
     top: 0;
-    background: rgb(50, 99, 17);
     width: stretch;
     height: stretch;
-    position: absolute;
+    background: rgb(50, 99, 17);
 }
 
-.Next-turn
+#Next-turn
 {
     background-color: rgb(218, 194, 63);
 }

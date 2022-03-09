@@ -6,7 +6,7 @@
     height: fit-content;
 }
 
-.TableImage{
+#tableImage{
     position: absolute;
     width: 22.25vw;
     height: 31.6vw;

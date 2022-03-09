@@ -6,7 +6,7 @@
     height: fit-content;
 }
 
-.DeckImage{
+#DeckImage{
     position: absolute;
     width: 7.8vw;
     height: 12vw;

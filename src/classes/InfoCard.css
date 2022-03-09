@@ -1,15 +1,25 @@
 .InfoCard{
     position: relative;
     margin-bottom: 20px;
-    margin-left: 82%;
+    margin-left: 84%;
     right: 0;
     top: 0;
     width: 16vw;
     height: 12vw;
     background-color: gray;
 }
-
-.leftCardImage{
+#usernameText{
+    display:grid;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    left: 0;
+    width: 16vw;
+    font-size: xx-large;
+    font-weight: bold;
+    background-color: rgb(60, 61, 68);
+}
+#leftCardImage{
     position: absolute;
     left: 2vw;
     top: 2vw;
@@ -17,7 +27,7 @@
     height: 8vw;
     border-style: none;
 }
-.rightCardImage{
+#rightCardImage{
     position: absolute;
     left: 9.2vw;
     top: 2vw;
@@ -44,16 +54,4 @@
     left: 9.2vw;
     width: 5.2vw;
     top: 10vw;
-}
-
-#username{
-    display:grid;
-    position: absolute;
-    text-align: center;
-    top: 0;
-    left: 0;
-    width: 16vw;
-    font-size: xx-large;
-    font-weight: bold;
-    background-color: rgb(60, 61, 68);
 }

@@ -3,7 +3,7 @@ import TableImage from "../TradeTable.png";
 function TradeTable() {
     return (
         <div className="TradeTable">
-            <img className="TableImage" src={TableImage} alt="TableImage" />
+            <img id="tableImage" src={TableImage} alt="TableImage" />
         </div>
     );
 }

@@ -11,11 +11,13 @@ import wax from '../Beans/Wax.jpg';
 import coffee from '../Beans/Coffee.jpg';
 import "./InfoCard.css";
 function InfoCard(props) {
+    //initialize player info with server data
     let username = props.username;
     let leftBeanType = props.leftBeanType;
     let leftCardCount = props.leftCardCount;
     let rightBeanType = props.rightBeanType;
     let rightCardCount = props.rightCardCount;
+    //set image and coinReq based on beanType
     let leftImage;
     let leftCoinReq;
     let rightImage;
@@ -116,6 +118,7 @@ function InfoCard(props) {
         default:
             
     }
+    //set coinCount based on cardCount and beanType
     let leftCoinCount = 0;
     let rightCoinCount = 0;
     while(leftCardCount>=leftCoinReq.at(leftCoinCount))
@@ -126,16 +129,17 @@ function InfoCard(props) {
     {
         rightCoinCount++;
     }
+
     return (
         <div className="InfoCard">
-            <text id="username">
+            <text id="usernameText">
                 {username}
             </text>
-            <img className="leftCardImage" src={leftImage} alt="leftImage" />
+            <img id="leftCardImage" src={leftImage} alt="leftImage" />
             <text id="coinProgressLeft">
                 {leftCardCount}/{leftCoinReq.at(leftCoinCount)}
             </text>
-            <img className="rightCardImage" src={rightImage} alt="rightImage" />
+            <img id="rightCardImage" src={rightImage} alt="rightImage" />
             <text id="coinProgressRight">
                 {rightCardCount}/{rightCoinReq.at(rightCoinCount)}
             </text>

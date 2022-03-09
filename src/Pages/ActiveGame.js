@@ -8,6 +8,7 @@ import PlayerHand from '../classes/PlayerHand.js';
 import "./ActiveGame.css";
 
 function ActiveGame() {
+    //initialize overall game variables and functions
     const [gameStatus, setGameStatus] = useState('PlantSecondOrFlip2');
     function nextTurn()
     {
@@ -19,20 +20,16 @@ function ActiveGame() {
   return (
       <div className="Active-game">
             <InfoCard username = "wheathin" leftBeanType="chili" leftCardCount={3} rightBeanType="blue" rightCardCount={7} />
+            <InfoCard username = "wheathin" leftBeanType="chili" leftCardCount={3} rightBeanType="blue" rightCardCount={7} />
+            <InfoCard username = "wheathin" leftBeanType="chili" leftCardCount={3} rightBeanType="blue" rightCardCount={7} />
             <Deck changeGameStatus = {setGameStatus} gameStatus = {gameStatus}/>
             <TradeTable/>
-            <BeanField className="leftField" cardNum={3} fieldNum={1} type="coffee" x={-7} y={4.5}/>
-            <BeanField className="rightField" cardNum={5} fieldNum={2} type="cocoa" x={.5} y={4.5}/>
+            <BeanField className="leftField" cardCount={3} fieldNum={1} type="coffee" x={-7} y={0}/>
+            <BeanField className="rightField" cardCount={2} fieldNum={2} type="cocoa" x={.5} y={0}/>
             <PlayerHand/>
-            <button className="Next-turn"
+            <button id="Next-turn"
                 title="NextTurn"
-                style={{
-                    position: "absolute",
-                    right: 0,
-                    bottom: 0,
-                    width: "4vw",
-                    height: "4vw"
-                }}
+                style={{position: "absolute", right: 0, bottom: 0, width: "4vw", height: "4vw"}}
                 onClick={nextTurn}
             ></button>
             <h1 id="gameStatus">{gameStatus}</h1>
