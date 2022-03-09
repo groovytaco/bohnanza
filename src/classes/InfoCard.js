@@ -11,15 +11,16 @@ import wax from '../Beans/Wax.jpg';
 import coffee from '../Beans/Coffee.jpg';
 import "./InfoCard.css";
 function InfoCard(props) {
-    var leftBeanType = props.leftBeanType;
-    var leftCardCount = props.leftCardCount;
-    var rightBeanType = props.rightBeanType;
-    var rightCardCount = props.rightCardCount;
-    var leftImage;
-    var leftCoinReq;
-    var rightImage;
-    var rightCoinReq;
-    switch (leftCardType) {
+    let username = props.username;
+    let leftBeanType = props.leftBeanType;
+    let leftCardCount = props.leftCardCount;
+    let rightBeanType = props.rightBeanType;
+    let rightCardCount = props.rightCardCount;
+    let leftImage;
+    let leftCoinReq;
+    let rightImage;
+    let rightCoinReq;
+    switch (leftBeanType) {
         case "cocoa":
             leftImage = cocoa;
             leftCoinReq = [2,2,3,4];
@@ -67,10 +68,77 @@ function InfoCard(props) {
         default:
             
     }
-    
+    switch (rightBeanType) {
+        case "cocoa":
+            rightImage = cocoa;
+            rightCoinReq = [2,2,3,4];
+            break;
+        case "garden":
+            rightImage = garden;
+            rightCoinReq = [2,2,3,100];
+            break;
+        case "red":
+            rightImage = red;
+            rightCoinReq = [2,3,4,5];
+            break;
+        case "blackEyed":
+            rightImage = blackEyed;
+            rightCoinReq = [2,4,5,6];
+            break;
+        case "soy":
+            rightImage = soy;
+            rightCoinReq = [2,4,6,7];
+            break;
+        case "green":
+            rightImage = green;
+            rightCoinReq = [3,5,6,7];
+            break;
+        case "stink":
+            rightImage = stink;
+            rightCoinReq = [3,5,7,8];
+            break;
+        case "chili":
+            rightImage = chili;
+            rightCoinReq = [3,6,8,9];
+            break;
+        case "blue":
+            rightImage = blue;
+            rightCoinReq = [4,6,8,10];
+            break;
+        case "wax":
+            rightImage = wax;
+            rightCoinReq = [4,7,9,11];
+            break;
+        case "coffee":
+            rightImage = coffee;
+            rightCoinReq = [4,7,10,12];
+            break;
+        default:
+            
+    }
+    let leftCoinCount = 0;
+    let rightCoinCount = 0;
+    while(leftCardCount>=leftCoinReq.at(leftCoinCount))
+    {
+        leftCoinCount++;
+    }
+    while(rightCardCount>=rightCoinReq.at(rightCoinCount))
+    {
+        rightCoinCount++;
+    }
     return (
         <div className="InfoCard">
-            
+            <text id="username">
+                {username}
+            </text>
+            <img className="leftCardImage" src={leftImage} alt="leftImage" />
+            <text id="coinProgressLeft">
+                {leftCardCount}/{leftCoinReq.at(leftCoinCount)}
+            </text>
+            <img className="rightCardImage" src={rightImage} alt="rightImage" />
+            <text id="coinProgressRight">
+                {rightCardCount}/{rightCoinReq.at(rightCoinCount)}
+            </text>
         </div>
     );
 }

@@ -12,3 +12,11 @@
 {
     background-color: rgb(218, 194, 63);
 }
+
+#gameStatus{
+    display: inline;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    width: stretch;
+}

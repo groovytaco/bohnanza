@@ -18,16 +18,12 @@ function ActiveGame() {
     }
   return (
       <div className="Active-game">
-            <InfoCard/>
-            <InfoCard/>
-            <InfoCard/>
-            <InfoCard/>
+            <InfoCard username = "wheathin" leftBeanType="chili" leftCardCount={3} rightBeanType="blue" rightCardCount={7} />
             <Deck changeGameStatus = {setGameStatus} gameStatus = {gameStatus}/>
             <TradeTable/>
-            <BeanField className="leftField" type="coffee" x="-7vw" y="4.5vw"/>
-            <BeanField className="rightField" type="cocoa" x=".5vw" y="4.5vw"/>
+            <BeanField className="leftField" cardNum={3} fieldNum={1} type="coffee" x={-7} y={4.5}/>
+            <BeanField className="rightField" cardNum={5} fieldNum={2} type="cocoa" x={.5} y={4.5}/>
             <PlayerHand/>
-            <h1>{gameStatus}</h1>
             <button className="Next-turn"
                 title="NextTurn"
                 style={{
@@ -39,6 +35,7 @@ function ActiveGame() {
                 }}
                 onClick={nextTurn}
             ></button>
+            <h1 id="gameStatus">{gameStatus}</h1>
         </div>
   );
 }

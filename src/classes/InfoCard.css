@@ -4,7 +4,56 @@
     margin-left: 82%;
     right: 0;
     top: 0;
-    width: 18vw;
-    height: 10vw;
+    width: 16vw;
+    height: 12vw;
     background-color: gray;
+}
+
+.leftCardImage{
+    position: absolute;
+    left: 2vw;
+    top: 2vw;
+    width: 5.2vw;
+    height: 8vw;
+    border-style: none;
+}
+.rightCardImage{
+    position: absolute;
+    left: 9.2vw;
+    top: 2vw;
+    width: 5.2vw;
+    height: 8vw;
+    border-style: none;
+}
+#coinProgressLeft{
+    font-size: x-large;
+    font-weight: bold;
+    background-color: rgb(60, 61, 68);
+    position: absolute;
+    text-align: center;
+    left: 2vw;
+    width: 5.2vw;
+    top: 10vw;
+}
+#coinProgressRight{
+    font-size: x-large;
+    font-weight: bold;
+    background-color: rgb(60, 61, 68);
+    position: absolute;
+    text-align: center;
+    left: 9.2vw;
+    width: 5.2vw;
+    top: 10vw;
+}
+
+#username{
+    display:grid;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    left: 0;
+    width: 16vw;
+    font-size: xx-large;
+    font-weight: bold;
+    background-color: rgb(60, 61, 68);
 }

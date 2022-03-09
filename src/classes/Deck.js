@@ -1,10 +1,10 @@
 import "./Deck.css";
-import DeckImage from "../Deck.jpg";
+import DeckImage from "../Images/Deck.jpg";
 import { useState } from 'react';
 import Card from "./Card";
 
 function Deck(props) {
-    var temp = [null];
+    let temp = [null];
     for (let i = 0; i < 24; i++) {
         temp.push("coffee");
     }

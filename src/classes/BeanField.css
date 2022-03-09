@@ -6,10 +6,18 @@
     height: fit-content;
     display: flex;
     justify-content: center;
+    text-align: center;
 }
 
-.FieldImage{
+
+.fieldImage{
     position: absolute;
-    width: 15vw;
-    height: 12vw;
+    width: 6.5vw;
+    height: 10vw;
+}
+
+#coinProgress{
+    font-size: x-large;
+    font-weight: bold;
+    background-color: rgb(60, 61, 68);
 }

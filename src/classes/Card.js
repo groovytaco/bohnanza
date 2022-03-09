@@ -13,9 +13,9 @@ import coffee from '../Beans/Coffee.jpg';
 import "./Card.css";
 
 function Card(props) {
-    var image;
-    var xPos = props.x;
-    var yPos = props.y;
+    let image;
+    let xPos = props.x;
+    let yPos = props.y;
     switch (props.type) {
         case "cocoa":
             image = cocoa;
@@ -54,7 +54,7 @@ function Card(props) {
             
     }
     return (
-            <div  className='Card' style={{ left: xPos, top: yPos, }}>
+            <div  className='Card' style={{ left: xPos, top: yPos}}>
                 <img className="bean-image"
                     src={image}
                     alt=""
