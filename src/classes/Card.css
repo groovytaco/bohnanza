@@ -3,9 +3,11 @@
   width: fit-content;
   height: fit-content;
 }
+
 .bean-image {
   position: absolute;
   width: 6.5vw;
   height: 10vw;
-  border-style: none;
+  box-shadow: 0 0 0 0.2vw #fde32c;
+  border-radius: 0.6vw;
 }

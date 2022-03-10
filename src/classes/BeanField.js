@@ -72,9 +72,22 @@ function BeanField(props) {
   } else {
     coinTarget = coinReq.at(coinReq.length - 1);
   }
-
+  function harvest() {}
   return (
     <div className="BeanField">
+      <button
+        id="harvestButton"
+        style={{
+          position: "absolute",
+          left: x + "vw",
+          bottom: 0,
+          width: "6.5vw",
+          height: "2vw",
+        }}
+        onClick={harvest}
+      >
+        Harvest
+      </button>
       <img
         id="fieldImage"
         alt=""

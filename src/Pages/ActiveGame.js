@@ -59,7 +59,6 @@ function ActiveGame() {
       <PlayerHand />
       <button
         id="Next-turn"
-        title="NextTurn"
         style={{
           position: "absolute",
           right: 0,
