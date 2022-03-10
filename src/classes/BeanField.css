@@ -29,3 +29,8 @@
     font-weight: bolder;
     background-color: rgb(60, 61, 68);
 }
+#coinImage{
+    position: absolute;
+    width: 1.6vw;
+    height: 1.6vw;
+}

@@ -9,6 +9,7 @@ import chili from '../Beans/Chili.jpg';
 import blue from '../Beans/Blue.jpg';
 import wax from '../Beans/Wax.jpg';
 import coffee from '../Beans/Coffee.jpg';
+import coinImage from "../Images/coin.jpg";
 import "./InfoCard.css";
 function InfoCard(props) {
     //initialize player info with server data
@@ -143,6 +144,20 @@ function InfoCard(props) {
             <text id="coinProgressRight">
                 {rightCardCount}/{rightCoinReq.at(rightCoinCount)}
             </text>
+            {(() => {
+                const coinImgs = [];
+                for (let i = 0; i < leftCoinCount; i++) {
+                  coinImgs.push(<img id="coinImage" alt="" src={coinImage} style={{ left: 4.8+"vw", bottom: 1.6*i + "vw"}} />);
+                }
+                return coinImgs;
+            })()}
+            {(() => {
+                const coinImgs = [];
+                for (let i = 0; i < rightCoinCount; i++) {
+                  coinImgs.push(<img id="coinImage" alt="" src={coinImage} style={{ left: 11.3+"vw", bottom: 1.6*i + "vw"}} />);
+                }
+                return coinImgs;
+            })()}
         </div>
     );
 }
