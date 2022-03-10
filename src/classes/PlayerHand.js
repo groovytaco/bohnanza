@@ -3,14 +3,16 @@ import Card from "../classes/Card.js";
 
 function PlayerHand() {
   return (
-    <div className="PlayerHand">
-      <Card type="chili" />
-      <Card type="chili" />
-      <Card type="chili" />
-      <Card type="chili" />
-      <Card type="chili" />
-      <Card type="chili" />
-      <Card type="chili" />
+    <div className="pickle-hand">
+      <div className="PlayerHand">
+        <Card type="chili" id="smart" />
+        <Card type="chili" />
+        <Card type="chili" />
+        <Card type="chili" />
+        <Card type="chili" />
+        <Card type="chili" />
+        <Card type="chili" />
+      </div>
     </div>
   );
 }

@@ -1,10 +1,24 @@
 .PlayerHand {
   display: flex;
-  padding: 3px;
-
+  padding: 30px;
   border: 1px solid white;
   height: fit-content;
   width: fit-content;
-  background: rebeccapurple;
+  background: rgb(69, 69, 69);
+  cursor: move;
 }
 
+.PlayerHand .Card {
+  position: static;
+  cursor: grab;
+}
+
+.PlayerHand .Card .bean-image {
+  position: static;
+}
+
+.pickle-hand {
+  display: flex;
+  justify-content: center;
+  margin-top: 300px;
+}
