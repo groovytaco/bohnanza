@@ -24,8 +24,8 @@ function ActiveGame() {
             <InfoCard username = "wheathin" leftBeanType="chili" leftCardCount={3} rightBeanType="blue" rightCardCount={7} />
             <Deck changeGameStatus = {setGameStatus} gameStatus = {gameStatus}/>
             <TradeTable/>
-            <BeanField className="leftField" cardCount={3} fieldNum={1} type="coffee" x={-7} y={0}/>
-            <BeanField className="rightField" cardCount={2} fieldNum={2} type="cocoa" x={.5} y={0}/>
+            <BeanField className="leftField" cardCount={6} fieldNum={1} type="coffee" x={-7.8} y={-18}/>
+            <BeanField className="rightField" cardCount={2} fieldNum={2} type="cocoa" x={1.7} y={-18}/>
             <PlayerHand/>
             <button id="Next-turn"
                 style={{position: "absolute", right: 0, bottom: 0, width: "4vw", height: "4vw"}}

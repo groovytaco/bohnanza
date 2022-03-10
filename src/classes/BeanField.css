@@ -7,6 +7,9 @@
     display: flex;
     justify-content: center;
     text-align: center;
+    box-sizing: border-box;
+    box-shadow: 0 0 0 .35vw black;
+    background-color: rgb(60, 61, 68);
 }
 
 
@@ -17,12 +20,12 @@
 }
 
 #coinProgress{
-    font-size: x-large;
+    font-size: 1.4vw;
     font-weight: bold;
     background-color: rgb(60, 61, 68);
 }
 #harvestButton{
-    font-size: large;
-    font-weight: bold;
+    font-size: 1.2vw;
+    font-weight: bolder;
     background-color: rgb(60, 61, 68);
 }

@@ -96,7 +96,7 @@ function Deck(props) {
     return (
         <div className="Deck" onClick={deckClicked}>
             <img id="DeckImage" style={{boxShadow: deckBoxShadow}} src={DeckImage} alt="DeckImage" />
-            <Card id="leftBean" highlighted={true} type={leftBean} x="15vw" y="1vw" />
+            <Card id="leftBean" highlighted={true} type={leftBean} x="15.5vw" y="1vw" />
             <Card id="rightBean" highlighted={true} type={rightBean} x="25vw" y="1vw" />
         </div>
     );
