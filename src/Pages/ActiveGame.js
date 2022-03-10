@@ -10,6 +10,10 @@ import "./ActiveGame.css";
 
 function ActiveGame() {
   //initialize overall game variables and functions
+  const [myCoinCount, setMyCoinCount] = useState(0);
+  function addCoins(coins) {
+    setMyCoinCount(myCoinCount + coins);
+  }
   const [gameStatus, setGameStatus] = useState("PlantSecondOrFlip2");
   function nextTurn() {
     if (gameStatus === "Flipped2Cards") {
@@ -42,6 +46,7 @@ function ActiveGame() {
       <Deck changeGameStatus={setGameStatus} gameStatus={gameStatus} />
       <TradeTable />
       <BeanField
+        addCoins={addCoins}
         className="leftField"
         cardCount={12}
         fieldNum={1}
@@ -50,6 +55,7 @@ function ActiveGame() {
         y={-18}
       />
       <BeanField
+        addCoins={addCoins}
         className="rightField"
         cardCount={2}
         fieldNum={2}
@@ -70,7 +76,7 @@ function ActiveGame() {
         }}
         onClick={nextTurn}
       ></button>
-      <h1 id="gameStatus">{gameStatus}</h1>
+      <h1 id="gameStatus">{myCoinCount}</h1>
     </div>
   );
 }

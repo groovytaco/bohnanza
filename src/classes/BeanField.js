@@ -3,15 +3,16 @@ import Card from "../classes/Card.js";
 import leftField from "../Images/1stBeanField.PNG";
 import rightField from "../Images/2ndBeanField.PNG";
 import coinImage from "../Images/coin.jpg";
+import { useState } from 'react';
 //import { useState } from 'react';
 
 function BeanField(props) {
   //initialize variable based on beanField properties
   let x = props.x;
   let y = props.y;
-  let cardType = props.type;
-  let cardCount = props.cardCount;
-
+  const [cardType, setCardType] = useState(props.type);
+  const [cardCount, setCardCount] = useState(props.cardCount);
+  let addCoins = props.addCoins;
   //initialize fieldImage based on fieldNum
   let fieldImage;
   if (props.fieldNum === 1) {
@@ -19,7 +20,6 @@ function BeanField(props) {
   } else if (props.fieldNum === 2) {
     fieldImage = rightField;
   }
-
   //initialize coinReq based on bean type
   let temp = [null];
   switch (cardType) {
@@ -58,13 +58,13 @@ function BeanField(props) {
       break;
     default:
   }
-    let coinReq = temp
+    const [coinReq, setCoinReq] = useState(temp);
     //set coinCount based on cardCount and beanType
-    let coinCount = 0;
-    while (cardCount >= coinReq.at(coinCount) && coinCount < coinReq.length) {
-        coinCount++;
+    let i = 0;
+    while (cardCount >= coinReq.at(i) && i < coinReq.length) {
+        i++;
     }
-
+    const [coinCount, setCoinCount] = useState(i);
     //set coinTarget based on coinCount and beanType
     let coinTarget = 0;
     if (coinCount < coinReq.length) {
@@ -73,7 +73,11 @@ function BeanField(props) {
         coinTarget = coinReq.at(coinReq.length - 1)
     }
     function harvest() {
-
+        addCoins(coinCount);
+        setCardType("")
+        setCardCount(0);
+        setCoinCount(0);
+        setCoinReq([null]);
     }
     return (
         <div className="BeanField" style={{position:"absolute", left: 50+x+"vw", top: 50+y+"vh", width: "6.5vw", height: cardCount + 17.1 + "vw" }}>
