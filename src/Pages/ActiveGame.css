@@ -10,7 +10,9 @@
 
 #Next-turn
 {
-    background-color: rgb(218, 194, 63);
+    background-color: transparent;
+    background-size: cover;
+    background-position: center;
 }
 
 #gameStatus{

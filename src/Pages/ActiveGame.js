@@ -5,6 +5,7 @@ import Deck from "../classes/Deck.js";
 import InfoCard from "../classes/InfoCard.js";
 import TradeTable from "../classes/TradeTable.js";
 import PlayerHand from "../classes/PlayerHand.js";
+import nextTurnImage from "../Images/nextTurnImage.jpg";
 import "./ActiveGame.css";
 
 function ActiveGame() {
@@ -42,7 +43,7 @@ function ActiveGame() {
       <TradeTable />
       <BeanField
         className="leftField"
-        cardCount={6}
+        cardCount={12}
         fieldNum={1}
         type="coffee"
         x={-7.8}
@@ -65,6 +66,7 @@ function ActiveGame() {
           bottom: 0,
           width: "4vw",
           height: "4vw",
+          backgroundImage: `url(${nextTurnImage})`
         }}
         onClick={nextTurn}
       ></button>

@@ -2,6 +2,7 @@ import "./BeanField.css";
 import Card from "../classes/Card.js";
 import leftField from "../Images/1stBeanField.PNG";
 import rightField from "../Images/2ndBeanField.PNG";
+import coinImage from "../Images/coin.jpg";
 //import { useState } from 'react';
 
 function BeanField(props) {
@@ -57,12 +58,7 @@ function BeanField(props) {
       break;
     default:
   }
-  let coinReq = temp;
-
-
-    }
     let coinReq = temp
-
     //set coinCount based on cardCount and beanType
     let coinCount = 0;
     while (cardCount >= coinReq.at(coinCount) && coinCount < coinReq.length) {
@@ -80,12 +76,13 @@ function BeanField(props) {
 
     }
     return (
-        <div className="BeanField" style={{position:"absolute", left: 50+x+"vw", top: 50+y+"vh", width: "6.5vw", height:  + cardCount + 15.5 + "vw" }}>
+        <div className="BeanField" style={{position:"absolute", left: 50+x+"vw", top: 50+y+"vh", width: "6.5vw", height: cardCount + 17.1 + "vw" }}>
             <button id="harvestButton" 
             style={{position:"absolute", left: 0, top: 0, width: "6.5vw", height: "2vw" }}
             onClick={harvest}>
                 Harvest
             </button>
+
             <img id="fieldImage" alt="" src={fieldImage} style={{ left: 0, top: 2 + "vw" }} />
             {(() => {
                 const cards = [];
@@ -94,6 +91,15 @@ function BeanField(props) {
                 }
                 return cards;
             })()}
+            
+            {(() => {
+                const coinImgs = [];
+                for (let i = 0; i < coinCount; i++) {
+                  coinImgs.push(<img id="coinImage" alt="" src={coinImage} style={{ left: 1.6*i+"vw", top: cardCount + 15.5 + "vw"}} />);
+                }
+                return coinImgs;
+            })()}
+
             <text id="coinProgress"  style={{ position: "absolute", textAlign: "center", left: 0, width: "6.5vw", top: cardCount + 14 + "vw", height: "1.5vw" }}>
                 {cardCount}/{coinTarget}
             </text>
