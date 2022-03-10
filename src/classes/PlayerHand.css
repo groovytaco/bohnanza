@@ -1,4 +1,15 @@
-.PlayerHand{
-    position: absolute;
-    
+.PlayerHand {
+  display: flex;
+  padding: 3px;
+
+  border: 1px solid white;
+  height: fit-content;
+  width: fit-content;
+  background: rebeccapurple;
+}
+
+.Card {
+  position: static;
+  width: 100%;
+  height: 100%;
 }
