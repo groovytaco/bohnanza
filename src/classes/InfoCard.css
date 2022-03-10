@@ -15,7 +15,8 @@
     top: 0;
     left: 0;
     width: 16vw;
-    font-size: xx-large;
+    height: fit-content;
+    font-size: 1.8vw;
     font-weight: bold;
     background-color: rgb(60, 61, 68);
 }

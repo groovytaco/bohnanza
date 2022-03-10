@@ -59,64 +59,46 @@ function BeanField(props) {
   }
   let coinReq = temp;
 
-  //set coinCount based on cardCount and beanType
-  let coinCount = 0;
-  while (cardCount >= coinReq.at(coinCount) && coinCount < coinReq.length) {
-    coinCount++;
-  }
 
-  //set coinTarget based on coinCount and beanType
-  let coinTarget = 0;
-  if (coinCount < coinReq.length) {
-    coinTarget = coinReq.at(coinCount);
-  } else {
-    coinTarget = coinReq.at(coinReq.length - 1);
-  }
-  function harvest() {}
-  return (
-    <div className="BeanField">
-      <button
-        id="harvestButton"
-        style={{
-          position: "absolute",
-          left: x + "vw",
-          bottom: 0,
-          width: "6.5vw",
-          height: "2vw",
-        }}
-        onClick={harvest}
-      >
-        Harvest
-      </button>
-      <img
-        id="fieldImage"
-        alt=""
-        src={fieldImage}
-        style={{ left: x + "vw", top: y + "vw" }}
-      />
-      {(() => {
-        const cards = [];
-        for (let i = 0; i < cardCount; i++) {
-          cards.push(
-            <Card type={cardType} x={x + "vw"} y={y + 3 + i + "vw"} />
-          );
-        }
-        return cards;
-      })()}
-      <text
-        id="coinProgress"
-        style={{
-          position: "absolute",
-          textAlign: "center",
-          left: x + "vw",
-          width: "6.5vw",
-          top: y + cardCount + 12.5 + "vw",
-        }}
-      >
-        {cardCount}/{coinTarget}
-      </text>
-    </div>
-  );
+    }
+    let coinReq = temp
+
+    //set coinCount based on cardCount and beanType
+    let coinCount = 0;
+    while (cardCount >= coinReq.at(coinCount) && coinCount < coinReq.length) {
+        coinCount++;
+    }
+
+    //set coinTarget based on coinCount and beanType
+    let coinTarget = 0;
+    if (coinCount < coinReq.length) {
+        coinTarget = coinReq.at(coinCount)
+    } else {
+        coinTarget = coinReq.at(coinReq.length - 1)
+    }
+    function harvest() {
+
+    }
+    return (
+        <div className="BeanField" style={{position:"absolute", left: 50+x+"vw", top: 50+y+"vh", width: "6.5vw", height:  + cardCount + 15.5 + "vw" }}>
+            <button id="harvestButton" 
+            style={{position:"absolute", left: 0, top: 0, width: "6.5vw", height: "2vw" }}
+            onClick={harvest}>
+                Harvest
+            </button>
+            <img id="fieldImage" alt="" src={fieldImage} style={{ left: 0, top: 2 + "vw" }} />
+            {(() => {
+                const cards = [];
+                for (let i = 0; i < cardCount; i++) {
+                    cards.push(<Card type={cardType} x={0} y={5 + i + "vw"} />);
+                }
+                return cards;
+            })()}
+            <text id="coinProgress"  style={{ position: "absolute", textAlign: "center", left: 0, width: "6.5vw", top: cardCount + 14 + "vw", height: "1.5vw" }}>
+                {cardCount}/{coinTarget}
+            </text>
+        </div>
+    );
 }
 
 export default BeanField;

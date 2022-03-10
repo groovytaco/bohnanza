@@ -42,19 +42,19 @@ function ActiveGame() {
       <TradeTable />
       <BeanField
         className="leftField"
-        cardCount={3}
+        cardCount={6}
         fieldNum={1}
         type="coffee"
-        x={-7}
-        y={0}
+        x={-7.8}
+        y={-18}
       />
       <BeanField
         className="rightField"
         cardCount={2}
         fieldNum={2}
         type="cocoa"
-        x={0.5}
-        y={0}
+        x={1.7}
+        y={-18}
       />
       <PlayerHand />
       <button
