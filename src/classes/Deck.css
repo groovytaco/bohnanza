@@ -10,4 +10,18 @@
     position: absolute;
     width: 7.8vw;
     height: 12vw;
+    box-sizing: border-box;
+    box-shadow: 0 0 0 0.3vw #fde32c;
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+    border-radius: 5px;
+}
+@keyframes borderBlink {    
+    from, to {    
+        box-shadow: transparent   
+        b 
+    }    
+    50% {    
+        box-shadow: black    
+    }    
 }

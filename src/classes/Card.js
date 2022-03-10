@@ -13,10 +13,14 @@ import coffee from '../Beans/Coffee.jpg';
 import "./Card.css";
 
 function Card(props) {
-    let image;
+    //initialize variable based on properties
+    let highlighted=props.highlighted;
+    let type = props.type
     let xPos = props.x;
     let yPos = props.y;
-    switch (props.type) {
+    //set card image based on beanType
+    let image;
+    switch (type) {
         case "cocoa":
             image = cocoa;
             break;
@@ -53,16 +57,27 @@ function Card(props) {
         default:
             
     }
+    //set border style based on highlighted variable
+    let boxShadow;
+    if(highlighted){
+        boxShadow="0 0 0 0.3vw #fde32c";
+    }else{
+        boxShadow="0 0 0 0px #fde32c";
+    }
+    let hidden = false;
+    if(type==="")
+    {
+        hidden = true;
+    }else{
+        hidden = false;
+    }
     return (
-            <div  className='Card' style={{ left: xPos, top: yPos}}>
+            <div  className='Card' hidden={hidden} style={{ left: xPos, top: yPos}}>
                 <img className="bean-image"
                     src={image}
                     alt=""
                     style={{
-                        borderStyle: "none",
-                        borderColor: "#fde32c",
-                        borderWidth: "5px",
-                        borderRadius: "5px"
+                        boxShadow: boxShadow
                     }}>
                 </img>
             </div> 

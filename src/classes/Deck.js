@@ -67,7 +67,13 @@ function Deck(props) {
         }
         setDeck(deck);
     }
-
+    let deckBoxShadow = "";
+    if(props.gameStatus==="PlantSecondOrFlip2")
+    {
+        deckBoxShadow="0 0 0 0.3vw #fde32c"
+    }else{
+        deckBoxShadow="0 0 0 0px #fde32c"
+    }
     function deckClicked() {
         if (props.gameStatus === "PlantSecondOrFlip2") {
             if (deck.length >= 0) {
@@ -89,9 +95,9 @@ function Deck(props) {
 
     return (
         <div className="Deck" onClick={deckClicked}>
-            <img id="DeckImage" src={DeckImage} alt="DeckImage" />
-            <Card id="leftBean" type={leftBean} x="15vw" y="1vw" />
-            <Card id="rightBean" type={rightBean} x="25vw" y="1vw" />
+            <img id="DeckImage" style={{boxShadow: deckBoxShadow}} src={DeckImage} alt="DeckImage" />
+            <Card id="leftBean" highlighted={true} type={leftBean} x="15vw" y="1vw" />
+            <Card id="rightBean" highlighted={true} type={rightBean} x="25vw" y="1vw" />
         </div>
     );
 }

@@ -28,7 +28,6 @@ function ActiveGame() {
             <BeanField className="rightField" cardCount={2} fieldNum={2} type="cocoa" x={.5} y={0}/>
             <PlayerHand/>
             <button id="Next-turn"
-                title="NextTurn"
                 style={{position: "absolute", right: 0, bottom: 0, width: "4vw", height: "4vw"}}
                 onClick={nextTurn}
             ></button>

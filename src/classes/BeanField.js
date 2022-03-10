@@ -10,7 +10,7 @@ function BeanField(props) {
     let y = props.y;
     let cardType = props.type;
     let cardCount = props.cardCount;
-    
+
     //initialize fieldImage based on fieldNum
     let fieldImage;
     if (props.fieldNum === 1) {
@@ -62,23 +62,28 @@ function BeanField(props) {
 
     //set coinCount based on cardCount and beanType
     let coinCount = 0;
-    while(cardCount>=coinReq.at(coinCount)&&coinCount<coinReq.length)
-    {
+    while (cardCount >= coinReq.at(coinCount) && coinCount < coinReq.length) {
         coinCount++;
     }
 
     //set coinTarget based on coinCount and beanType
     let coinTarget = 0;
-    if(coinCount<coinReq.length)
-    {
+    if (coinCount < coinReq.length) {
         coinTarget = coinReq.at(coinCount)
-    }else{
-        coinTarget = coinReq.at(coinReq.length-1)
+    } else {
+        coinTarget = coinReq.at(coinReq.length - 1)
     }
+    function harvest() {
 
+    }
     return (
         <div className="BeanField">
-            <img id="fieldImage" alt="" src={fieldImage}  style={{ left: x + "vw", top: y + "vw" }} />
+            <button id="harvestButton" 
+            style={{position:"absolute", left: x+"vw", bottom: 0, width: "6.5vw", height: "2vw" }}
+            onClick={harvest}>
+                Harvest
+            </button>
+            <img id="fieldImage" alt="" src={fieldImage} style={{ left: x + "vw", top: y + "vw" }} />
             {(() => {
                 const cards = [];
                 for (let i = 0; i < cardCount; i++) {
@@ -86,7 +91,7 @@ function BeanField(props) {
                 }
                 return cards;
             })()}
-            <text id="coinProgress" style={{ position: "absolute", textAlign: "center", left: x + "vw", width: "6.5vw", top: y + cardCount + 12.5 + "vw"}}>
+            <text id="coinProgress" style={{ position: "absolute", textAlign: "center", left: x + "vw", width: "6.5vw", top: y + cardCount + 12.5 + "vw" }}>
                 {cardCount}/{coinTarget}
             </text>
         </div>

@@ -11,3 +11,13 @@
     width: 22.25vw;
     height: 31.6vw;
 }
+#tradeButton{
+    font-size: large;
+    font-weight: bold;
+    background-color: rgb(60, 61, 68);
+}
+#confirmButton{
+    font-size: large;
+    font-weight: bold;
+    background-color: rgb(60, 61, 68);
+}
