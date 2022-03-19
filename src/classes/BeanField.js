@@ -4,9 +4,11 @@ import leftField from "../Images/1stBeanField.PNG";
 import rightField from "../Images/2ndBeanField.PNG";
 import coinImage from "../Images/coin.jpg";
 import { useState } from 'react';
-//import { useState } from 'react';
 
 function BeanField(props) {
+  //initial gameState variables
+  let gameState=props.gameState;
+  let setGameState=props.setGameState;
   //initialize fieldImage based on fieldNum
   let fieldImage;
   if (props.fieldNum === 1) {
@@ -65,7 +67,7 @@ function BeanField(props) {
   } else {
       coinTarget = temp.at(temp.length - 1)
   }
-  //initialize variable based on beanField properties
+  //initialize state variables based on props
   const [state, setState] = useState(
     {
       'x': props.x,
@@ -79,13 +81,14 @@ function BeanField(props) {
       'coinTarget': coinTarget
     }
   );
-  let gameState=props.gameState;
-  let setGameState=props.setGameState;
-    function harvest() {
+
+  function harvest() {
+        //update player coin total
         setGameState({
           ...gameState,
           myCoinCount: gameState.myCoinCount + state.coinCount
         }); 
+        //reset beanfield to empty
         setState({
           ...state,
           cardType: "",
@@ -95,6 +98,7 @@ function BeanField(props) {
           coinTarget: 0
         });
     }
+
     return (
         <div className="BeanField" style={{position:"absolute", left: 50+state.x+"vw", top: 50+state.y+"vh", width: "6.5vw", height: state.cardCount + 17.1 + "vw" }}>
             <button id="harvestButton" 

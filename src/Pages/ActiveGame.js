@@ -83,7 +83,7 @@ function ActiveGame() {
         }}
         onClick={nextTurn}
       ></button>
-      <h1 id="gameStatus">{gameState.selectedCards.at(0)+" "+gameState.selectedCards.at(1)}</h1>
+      <h1 id="gameStatus">{gameState.myCoinCount}</h1>
     </div>
   );
 }

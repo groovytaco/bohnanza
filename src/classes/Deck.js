@@ -54,8 +54,7 @@ function Deck(props) {
         {
           'deck': temp,
           'leftBean': "",
-          'rightBean': "",
-          'hidden': true
+          'rightBean': ""
         }
       );
     //initialize functions
@@ -102,7 +101,6 @@ function Deck(props) {
                 deck: tempDeck,
                 leftBean: tempLeftBean,
                 rightBean: tempRightBean,
-                hidden: false
             });
             setGameState({
                 ...gameState,
@@ -115,10 +113,10 @@ function Deck(props) {
         <div className="Deck" onClick={deckClicked}>
             <img id="DeckImage" style={{boxShadow: deckBoxShadow}} src={DeckImage} alt="DeckImage" />
             <Card id="leftBean" gameState={gameState} setGameState={setGameState} 
-            highlighted={true} hidden={state.hidden} type={state.leftBean} 
+            highlighted={true} type={state.leftBean} 
             x="15.5vw" y="1vw" />
             <Card id="rightBean" gameState={gameState} setGameState={setGameState} 
-            highlighted={true} hidden={state.hidden} type={state.rightBean} 
+            highlighted={true} type={state.rightBean} 
             x="25vw" y="1vw" />
         </div>
     );

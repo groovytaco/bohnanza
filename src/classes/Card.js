@@ -10,10 +10,73 @@ import chili from "../Beans/Chili.jpg";
 import blue from "../Beans/Blue.jpg";
 import wax from "../Beans/Wax.jpg";
 import coffee from "../Beans/Coffee.jpg";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import "./Card.css";
 
 function Card(props) {
+  //initial gameState variables
+  let gameState=props.gameState;
+  let setGameState=props.setGameState;
+  //initialize state variables based on props
+  let hidden = false;
+  if (props.type === "") {
+    hidden = true;
+  } else {
+    hidden = false;
+  }
+  const [state, setState] = useState(
+    {
+      'highlighted': props.highlighted,
+      'type': props.type,
+      'xPos': props.x,
+      'yPos': props.y,
+      'hidden': hidden,
+      'boxShadow': "",
+      'needsUpdate': false
+    });
+  //add this card to gameState once state has updated
+  useEffect(() => {
+    if(state.needsUpdate)
+    {
+      alert("test")
+      test()
+      setGameState({
+      ...gameState,
+      selectedCards: [...gameState.selectedCards, state]
+      });
+      setState({...state, needsUpdate:false})
+    }
+  }, [state])
+  function test()
+  {
+    
+  }
+  //update state when type prop is changed
+  useEffect(() => {
+    if (props.type === "") {
+      setState({...state, hidden: true})
+    } else {
+      setState({...state, hidden: false})
+    }
+  }, [props.type])
+  //update state when highlighted prop is changed
+  useEffect(() => {
+    if (props.highlighted) {
+      setState({...state, boxShadow: "0 0 0 0.3vw #fde32c"})
+    } else {
+      setState({...state, boxShadow: "0 0 0 0px #fde32c"})
+    }
+  }, [props.highlighted])
+  function cardClicked()
+  {
+    setState({
+      ...state,
+      'type': props.type,
+      highlighted: false,
+      boxShadow: "0 0 0 0px #fde32c",
+      needsUpdate: true
+      });
+  }
   //set card image based on beanType
   let image;
   switch (props.type) {
@@ -52,45 +115,8 @@ function Card(props) {
       break;
     default:
   }
-  //set border style based on highlighted variable
-  let boxShadow;
-  if (props.highlighted) {
-    boxShadow = "0 0 0 0.3vw #fde32c";
-  } else {
-    boxShadow = "0 0 0 0px #fde32c";
-  }
-  let hidden = false;
-  if (props.type === "") {
-    hidden = true;
-  } else {
-    hidden = false;
-  }
-  //initialize variable based on properties
-  const [state, setState] = useState(
-    {
-      'highlighted': props.highlighted,
-      'type': props.type,
-      'xPos': props.x,
-      'yPos': props.y,
-      'hidden': props.hidden,
-      'boxShadow': boxShadow
-    });
-  let gameState=props.gameState;
-  let setGameState=props.setGameState;
-  function cardClicked()
-  {
-    setState({
-      ...state,
-      highlighted: false,
-      boxShadow: "0 0 0 0px #fde32c",
-    });
-    setGameState({
-      ...gameState,
-      selectedCards: [...gameState.selectedCards,props.type]
-    });
-  }
   return (
-    <div className="Card" hidden={props.hidden} style={{ left: state.xPos, top: state.yPos }}>
+    <div className="Card" hidden={state.hidden} style={{ left: state.xPos, top: state.yPos }}>
       <img
         onClick={cardClicked}
         className="bean-image"
