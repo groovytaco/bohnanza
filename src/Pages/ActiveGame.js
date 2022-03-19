@@ -13,7 +13,8 @@ function ActiveGame() {
   const [gameState, setGameState] = useState(
     {
       'myCoinCount': 0,
-      'gameStatus': "PlantSecondOrFlip2"
+      'gameStatus': "PlantSecondOrFlip2",
+      'selectedCards': []
     }
   );
   function nextTurn() {
@@ -48,7 +49,7 @@ function ActiveGame() {
         rightCardCount={7}
       />
       <Deck gameState={gameState} setGameState={setGameState} />
-      <TradeTable />
+      <TradeTable gameState={gameState} setGameState={setGameState} />
       <BeanField
         gameState={gameState}
         setGameState={setGameState}
@@ -82,7 +83,7 @@ function ActiveGame() {
         }}
         onClick={nextTurn}
       ></button>
-      <h1 id="gameStatus">{gameState.myCoinCount}</h1>
+      <h1 id="gameStatus">{gameState.selectedCards.at(0)+" "+gameState.selectedCards.at(1)}</h1>
     </div>
   );
 }

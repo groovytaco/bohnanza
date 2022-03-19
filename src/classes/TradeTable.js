@@ -1,9 +1,11 @@
 import "./TradeTable.css";
 import TableImage from "../TradeTable.png";
-function TradeTable() {
+function TradeTable(props) {
+    let gameState=props.gameState;
+    let setGameState=props.setGameState;
     function startTrading()
     {
-        
+
     }
     function confirmTrade()
     {

@@ -75,13 +75,19 @@ function Card(props) {
       'hidden': props.hidden,
       'boxShadow': boxShadow
     });
+  let gameState=props.gameState;
+  let setGameState=props.setGameState;
   function cardClicked()
   {
     setState({
       ...state,
       highlighted: false,
-      boxShadow: "0 0 0 0px #fde32c"
-  });
+      boxShadow: "0 0 0 0px #fde32c",
+    });
+    setGameState({
+      ...gameState,
+      selectedCards: [...gameState.selectedCards,props.type]
+    });
   }
   return (
     <div className="Card" hidden={props.hidden} style={{ left: state.xPos, top: state.yPos }}>
