@@ -10,14 +10,18 @@ import "./ActiveGame.css";
 
 function ActiveGame() {
   //initialize overall game variables and functions
-  const [myCoinCount, setMyCoinCount] = useState(0);
-  function addCoins(coins) {
-    setMyCoinCount(myCoinCount + coins);
-  }
-  const [gameStatus, setGameStatus] = useState("PlantSecondOrFlip2");
+  const [gameState, setGameState] = useState(
+    {
+      'myCoinCount': 0,
+      'gameStatus': "PlantSecondOrFlip2"
+    }
+  );
   function nextTurn() {
-    if (gameStatus === "Flipped2Cards") {
-      setGameStatus("WaitingForTurn");
+    if (gameState.gameStatus === "Flipped2Cards") {
+      setGameState({
+        ...gameState,
+        gameStatus: "WaitingForTurn"
+      });
     }
   }
   return (
@@ -43,21 +47,23 @@ function ActiveGame() {
         rightBeanType="blue"
         rightCardCount={7}
       />
-      <Deck changeGameStatus={setGameStatus} gameStatus={gameStatus} />
+      <Deck gameState={gameState} setGameState={setGameState} />
       <TradeTable />
       <BeanField
-        addCoins={addCoins}
+        gameState={gameState}
+        setGameState={setGameState}
         className="leftField"
-        cardCount={12}
+        cardCount={9}
         fieldNum={1}
         type="coffee"
         x={-7.8}
         y={-18}
       />
       <BeanField
-        addCoins={addCoins}
+        gameState={gameState}
+        setGameState={setGameState}
         className="rightField"
-        cardCount={2}
+        cardCount={3}
         fieldNum={2}
         type="cocoa"
         x={1.7}
@@ -76,7 +82,7 @@ function ActiveGame() {
         }}
         onClick={nextTurn}
       ></button>
-      <h1 id="gameStatus">{myCoinCount}</h1>
+      <h1 id="gameStatus">{gameState.myCoinCount}</h1>
     </div>
   );
 }

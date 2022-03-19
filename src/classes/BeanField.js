@@ -7,12 +7,6 @@ import { useState } from 'react';
 //import { useState } from 'react';
 
 function BeanField(props) {
-  //initialize variable based on beanField properties
-  let x = props.x;
-  let y = props.y;
-  const [cardType, setCardType] = useState(props.type);
-  const [cardCount, setCardCount] = useState(props.cardCount);
-  let addCoins = props.addCoins;
   //initialize fieldImage based on fieldNum
   let fieldImage;
   if (props.fieldNum === 1) {
@@ -22,7 +16,7 @@ function BeanField(props) {
   }
   //initialize coinReq based on bean type
   let temp = [null];
-  switch (cardType) {
+  switch (props.type) {
     case "cocoa":
       temp = [2, 2, 3, 4];
       break;
@@ -58,29 +52,51 @@ function BeanField(props) {
       break;
     default:
   }
-    const [coinReq, setCoinReq] = useState(temp);
-    //set coinCount based on cardCount and beanType
-    let i = 0;
-    while (cardCount >= coinReq.at(i) && i < coinReq.length) {
-        i++;
+  //set coinCount based on cardCount and beanType
+  let i = 0;
+  while (props.cardCount >= temp.at(i) && i < temp.length) {
+      i++;
+  }
+  let coinCount = i;
+  //set coinTarget based on coinCount and beanType
+  let coinTarget = 0;
+  if (coinCount < temp.length) {
+      coinTarget = temp.at(coinCount)
+  } else {
+      coinTarget = temp.at(temp.length - 1)
+  }
+  //initialize variable based on beanField properties
+  const [state, setState] = useState(
+    {
+      'x': props.x,
+      'y': props.y,
+      'cardType': props.type,
+      'cardCount': props.cardCount,
+      'addCoins': props.addCoins,
+      'fieldNum': props.fieldNum,
+      'coinReq': temp,
+      'coinCount': coinCount,
+      'coinTarget': coinTarget
     }
-    const [coinCount, setCoinCount] = useState(i);
-    //set coinTarget based on coinCount and beanType
-    let coinTarget = 0;
-    if (coinCount < coinReq.length) {
-        coinTarget = coinReq.at(coinCount)
-    } else {
-        coinTarget = coinReq.at(coinReq.length - 1)
-    }
+  );
+  let gameState=props.gameState;
+  let setGameState=props.setGameState;
     function harvest() {
-        addCoins(coinCount);
-        setCardType("")
-        setCardCount(0);
-        setCoinCount(0);
-        setCoinReq([null]);
+        setGameState({
+          ...gameState,
+          myCoinCount: gameState.myCoinCount + state.coinCount
+        }); 
+        setState({
+          ...state,
+          cardType: "",
+          cardCount: 0,
+          coinCount: 0,
+          coinReq: [null],
+          coinTarget: 0
+        });
     }
     return (
-        <div className="BeanField" style={{position:"absolute", left: 50+x+"vw", top: 50+y+"vh", width: "6.5vw", height: cardCount + 17.1 + "vw" }}>
+        <div className="BeanField" style={{position:"absolute", left: 50+state.x+"vw", top: 50+state.y+"vh", width: "6.5vw", height: state.cardCount + 17.1 + "vw" }}>
             <button id="harvestButton" 
             style={{position:"absolute", left: 0, top: 0, width: "6.5vw", height: "2vw" }}
             onClick={harvest}>
@@ -90,22 +106,22 @@ function BeanField(props) {
             <img id="fieldImage" alt="" src={fieldImage} style={{ left: 0, top: 2 + "vw" }} />
             {(() => {
                 const cards = [];
-                for (let i = 0; i < cardCount; i++) {
-                    cards.push(<Card type={cardType} x={0} y={5 + i + "vw"} />);
+                for (let i = 0; i < state.cardCount; i++) {
+                    cards.push(<Card type={state.cardType} x={0} y={5 + i + "vw"} />);
                 }
                 return cards;
             })()}
             
             {(() => {
                 const coinImgs = [];
-                for (let i = 0; i < coinCount; i++) {
-                  coinImgs.push(<img id="coinImage" alt="" src={coinImage} style={{ left: 1.6*i+"vw", top: cardCount + 15.5 + "vw"}} />);
+                for (let i = 0; i < state.coinCount; i++) {
+                  coinImgs.push(<img id="coinImage" alt="" src={coinImage} style={{ left: 1.6*i+"vw", top: state.cardCount + 15.5 + "vw"}} />);
                 }
                 return coinImgs;
             })()}
 
-            <text id="coinProgress"  style={{ position: "absolute", textAlign: "center", left: 0, width: "6.5vw", top: cardCount + 14 + "vw", height: "1.5vw" }}>
-                {cardCount}/{coinTarget}
+            <text id="coinProgress"  style={{ position: "absolute", textAlign: "center", left: 0, width: "6.5vw", top: state.cardCount + 14 + "vw", height: "1.5vw" }}>
+                {state.cardCount}/{state.coinTarget}
             </text>
         </div>
     );

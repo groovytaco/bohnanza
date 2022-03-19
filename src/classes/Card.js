@@ -10,17 +10,13 @@ import chili from "../Beans/Chili.jpg";
 import blue from "../Beans/Blue.jpg";
 import wax from "../Beans/Wax.jpg";
 import coffee from "../Beans/Coffee.jpg";
+import { useState } from 'react';
 import "./Card.css";
 
 function Card(props) {
-  //initialize variable based on properties
-  let highlighted = props.highlighted;
-  let type = props.type;
-  let xPos = props.x;
-  let yPos = props.y;
   //set card image based on beanType
   let image;
-  switch (type) {
+  switch (props.type) {
     case "cocoa":
       image = cocoa;
       break;
@@ -58,25 +54,44 @@ function Card(props) {
   }
   //set border style based on highlighted variable
   let boxShadow;
-  if (highlighted) {
+  if (props.highlighted) {
     boxShadow = "0 0 0 0.3vw #fde32c";
   } else {
     boxShadow = "0 0 0 0px #fde32c";
   }
   let hidden = false;
-  if (type === "") {
+  if (props.type === "") {
     hidden = true;
   } else {
     hidden = false;
   }
+  //initialize variable based on properties
+  const [state, setState] = useState(
+    {
+      'highlighted': props.highlighted,
+      'type': props.type,
+      'xPos': props.x,
+      'yPos': props.y,
+      'hidden': props.hidden,
+      'boxShadow': boxShadow
+    });
+  function cardClicked()
+  {
+    setState({
+      ...state,
+      highlighted: false,
+      boxShadow: "0 0 0 0px #fde32c"
+  });
+  }
   return (
-    <div className="Card" hidden={hidden} style={{ left: xPos, top: yPos }}>
+    <div className="Card" hidden={props.hidden} style={{ left: state.xPos, top: state.yPos }}>
       <img
+        onClick={cardClicked}
         className="bean-image"
         src={image}
         alt=""
         style={{
-          boxShadow: boxShadow,
+          boxShadow: state.boxShadow,
         }}
       ></img>
     </div>

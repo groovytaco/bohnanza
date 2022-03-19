@@ -3,7 +3,7 @@ import TableImage from "../TradeTable.png";
 function TradeTable() {
     function startTrading()
     {
-
+        
     }
     function confirmTrade()
     {
