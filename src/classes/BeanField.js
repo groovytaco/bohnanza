@@ -111,7 +111,7 @@ function BeanField(props) {
             {(() => {
                 const cards = [];
                 for (let i = 0; i < state.cardCount; i++) {
-                    cards.push(<Card gameState={gameState} setGameState={setGameState} type={state.cardType} x={0} y={5 + i + "vw"} />);
+                    cards.push(<Card type={state.cardType} x={0} y={5 + i + "vw"} />);
                 }
                 return cards;
             })()}

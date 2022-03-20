@@ -7,7 +7,7 @@ function Deck(props) {
     let gameState=props.gameState;
     let setGameState=props.setGameState;
     //add all cards to deck
-    let temp = [null];
+    let temp = [];
     for (let i = 0; i < 24; i++) {
         temp.push("coffee");
     }
@@ -112,10 +112,10 @@ function Deck(props) {
     return (
         <div className="Deck" onClick={deckClicked}>
             <img id="DeckImage" style={{boxShadow: deckBoxShadow}} src={DeckImage} alt="DeckImage" />
-            <Card id="leftBean" gameState={gameState} setGameState={setGameState} 
+            <Card id="leftBean" gameState={gameState} setGameState={setGameState} selectable={true}
             highlighted={true} type={state.leftBean} 
             x="15.5vw" y="1vw" />
-            <Card id="rightBean" gameState={gameState} setGameState={setGameState} 
+            <Card id="rightBean" gameState={gameState} setGameState={setGameState} selectable={true}
             highlighted={true} type={state.rightBean} 
             x="25vw" y="1vw" />
         </div>

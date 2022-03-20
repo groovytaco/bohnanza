@@ -17,66 +17,77 @@ function Card(props) {
   //initial gameState variables
   let gameState=props.gameState;
   let setGameState=props.setGameState;
-  //initialize state variables based on props
-  let hidden = false;
+  //initialize css variables
+  let hidden;
   if (props.type === "") {
     hidden = true;
   } else {
     hidden = false;
   }
+  let boxShadow = "";
+  if (props.highlighted) {
+    boxShadow = "0 0 0 0.3vw #fde32c";
+  } else {
+    boxShadow = "0 0 0 0px #fde32c";
+  }
+  //initialize state variables based on props
   const [state, setState] = useState(
     {
+      'hidden': hidden,
       'highlighted': props.highlighted,
+      'boxShadow': boxShadow,
       'type': props.type,
       'xPos': props.x,
       'yPos': props.y,
-      'hidden': hidden,
-      'boxShadow': "",
+      'selected': false,
+      'opacity': 1,
       'needsUpdate': false
     });
-  //add this card to gameState once state has updated
+  //handle state change
   useEffect(() => {
+    //add this card to "selected cards" in gameState 
     if(state.needsUpdate)
     {
-      alert("test")
-      test()
       setGameState({
       ...gameState,
       selectedCards: [...gameState.selectedCards, state]
       });
       setState({...state, needsUpdate:false})
     }
-  }, [state])
-  function test()
-  {
-    
-  }
-  //update state when type prop is changed
+  }, [state.needsUpdate])
   useEffect(() => {
-    if (props.type === "") {
-      setState({...state, hidden: true})
+    //update hidden
+    if (state.type === "") {
+      setState({...state, hidden:true})
     } else {
-      setState({...state, hidden: false})
+      setState({...state, hidden:false})
     }
+  }, [state.type])
+  useEffect(() => {
+    //update border
+    if (state.highlighted) {
+      setState({...state, boxShadow:"0 0 0 0.3vw #fde32c"});
+    } else {
+      setState({...state, boxShadow:"0 0 0 0vw #fde32c"});
+    }
+}, [state.highlighted])
+  useEffect(() => {
+    //update opacity
+    if (state.selected) {
+      setState({...state, opacity:0.1})
+    } else {
+      setState({...state, opacity:1})
+    }
+  }, [state.selected])
+  
+  //update state when the "type" prop is changed
+  useEffect(() => {
+      setState({...state, type: props.type})
   }, [props.type])
-  //update state when highlighted prop is changed
+  //update state when "highlighted" prop is changed
   useEffect(() => {
-    if (props.highlighted) {
-      setState({...state, boxShadow: "0 0 0 0.3vw #fde32c"})
-    } else {
-      setState({...state, boxShadow: "0 0 0 0px #fde32c"})
-    }
+      setState({...state, highlighted: props.highlighted})
   }, [props.highlighted])
-  function cardClicked()
-  {
-    setState({
-      ...state,
-      'type': props.type,
-      highlighted: false,
-      boxShadow: "0 0 0 0px #fde32c",
-      needsUpdate: true
-      });
-  }
   //set card image based on beanType
   let image;
   switch (props.type) {
@@ -115,8 +126,21 @@ function Card(props) {
       break;
     default:
   }
+
+  function cardClicked()
+  {
+    if(props.selectable)
+    {
+    setState({
+      ...state,
+      selected: true,
+      needsUpdate: true
+      });
+    }
+  }
+
   return (
-    <div className="Card" hidden={state.hidden} style={{ left: state.xPos, top: state.yPos }}>
+    <div className="Card" hidden={state.hidden} style={{opacity:state.opacity, left: state.xPos, top: state.yPos }}>
       <img
         onClick={cardClicked}
         className="bean-image"

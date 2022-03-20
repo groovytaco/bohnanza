@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useEffect, useState } from 'react';
 import BeanField from "../classes/BeanField.js";
 import Deck from "../classes/Deck.js";
 import InfoCard from "../classes/InfoCard.js";
@@ -14,7 +14,11 @@ function ActiveGame() {
     {
       'myCoinCount': 0,
       'gameStatus': "PlantSecondOrFlip2",
-      'selectedCards': []
+      'selectedCards': [],
+      'tradeTableState': {},
+      'setTradeTableState': ()=>{},
+      'playerHandState': {},
+      'setPlayerHandState': ()=>{}
     }
   );
   function nextTurn() {
@@ -50,9 +54,7 @@ function ActiveGame() {
       />
       <Deck gameState={gameState} setGameState={setGameState} />
       <TradeTable gameState={gameState} setGameState={setGameState} />
-      <BeanField
-        gameState={gameState}
-        setGameState={setGameState}
+      <BeanField gameState={gameState} setGameState={setGameState}
         className="leftField"
         cardCount={9}
         fieldNum={1}
@@ -60,9 +62,7 @@ function ActiveGame() {
         x={-7.8}
         y={-18}
       />
-      <BeanField
-        gameState={gameState}
-        setGameState={setGameState}
+      <BeanField gameState={gameState} setGameState={setGameState}
         className="rightField"
         cardCount={3}
         fieldNum={2}
@@ -70,7 +70,7 @@ function ActiveGame() {
         x={1.7}
         y={-18}
       />
-      <PlayerHand />
+      <PlayerHand gameState={gameState} setGameState={setGameState}/>
       <button
         id="Next-turn"
         style={{
