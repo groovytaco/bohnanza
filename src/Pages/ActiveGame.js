@@ -25,7 +25,7 @@ function ActiveGame() {
     if (gameState.gameStatus === "Flipped2Cards") {
       setGameState({
         ...gameState,
-        gameStatus: "WaitingForTurn"
+        gameStatus: "PlantSecondOrFlip2"
       });
     }
   }
