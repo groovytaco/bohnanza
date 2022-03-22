@@ -10,13 +10,13 @@ import chili from "../Beans/Chili.jpg";
 import blue from "../Beans/Blue.jpg";
 import wax from "../Beans/Wax.jpg";
 import coffee from "../Beans/Coffee.jpg";
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 import "./Card.css";
 
 function Card(props) {
   //initial gameState variables
-  let gameState=props.gameState;
-  let setGameState=props.setGameState;
+  let gameState = props.gameState;
+  let setGameState = props.setGameState;
   //initialize css variables
   let hidden;
   if (props.type === "") {
@@ -31,63 +31,107 @@ function Card(props) {
     boxShadow = "0 0 0 0px #fde32c";
   }
   //initialize state variables based on props
-  const [state, setState] = useState(
-    {
-      'hidden': hidden,
-      'highlighted': props.highlighted,
-      'boxShadow': boxShadow,
-      'type': props.type,
-      'xPos': props.x,
-      'yPos': props.y,
-      'selected': false,
-      'opacity': 1,
-      'needsUpdate': false
-    });
+  const [state, setState] = useState({
+    hidden: hidden,
+    highlighted: props.highlighted,
+    boxShadow: boxShadow,
+    type: props.type,
+    xPos: props.x,
+    yPos: props.y,
+    selected: false,
+    opacity: 1,
+    needsUpdate: false,
+  });
   //handle state change
-  useEffect(() => {
-    //add this card to "selected cards" in gameState 
-    if(state.needsUpdate)
-    {
-      setGameState({
-      ...gameState,
-      selectedCards: [...gameState.selectedCards, state]
-      });
-      setState({...state, needsUpdate:false})
-    }
-  }, [state.needsUpdate])
   useEffect(() => {
     //update hidden
     if (state.type === "") {
-      setState({...state, hidden:true})
+      setState({ ...state, hidden: true });
     } else {
-      setState({...state, hidden:false})
+      setState({ ...state, hidden: false });
     }
-  }, [state.type])
+  }, [state.type]);
   useEffect(() => {
     //update border
     if (state.highlighted) {
-      setState({...state, boxShadow:"0 0 0 0.3vw #fde32c"});
+      setState({ ...state, boxShadow: "0 0 0 0.3vw #fde32c" });
     } else {
-      setState({...state, boxShadow:"0 0 0 0vw #fde32c"});
+      setState({ ...state, boxShadow: "0 0 0 0vw #fde32c" });
     }
-}, [state.highlighted])
+  }, [state.highlighted]);
   useEffect(() => {
     //update opacity
     if (state.selected) {
-      setState({...state, opacity:0.1})
+      setState({ ...state, opacity: 0.1 });
     } else {
-      setState({...state, opacity:1})
+      setState({ ...state, opacity: 1 });
     }
-  }, [state.selected])
-  
+  }, [state.selected]);
+  useEffect(() => {
+    //update opacity
+    if (gameState.justPlanted) {
+      if (state.selected) {
+        let selectedCards = gameState.selectedCards;
+        for (let x in selectedCards) {
+          if (selectedCards.at(x) === state.type) {
+            selectedCards.splice(x, 1);
+            break;
+          }
+        }
+        setGameState({
+          ...gameState,
+          selectedCards: selectedCards,
+        });
+        setState({ ...state, hidden: true, type: "", selected: false });
+      }
+    }
+  }, [gameState.justPlanted]);
+  useEffect(() => {
+    //update opacity
+    if (gameState.finishTrade) {
+      if (state.selected) {
+        let selectedCards = gameState.selectedCards;
+        for (let x in selectedCards) {
+          if (selectedCards.at(x) === state.type) {
+            selectedCards.splice(x, 1);
+            break;
+          }
+        }
+        setGameState({
+          ...gameState,
+          selectedCards: selectedCards,
+        });
+        setState({ ...state, hidden: true, type: "", selected: false });
+      }
+    }
+  }, [gameState.finishTrade]);
+  useEffect(() => {
+    //update opacity
+    if (gameState.cancelTrade) {
+      if (state.selected) {
+        let selectedCards = gameState.selectedCards;
+        for (let x in selectedCards) {
+          if (selectedCards.at(x) === state.type) {
+            selectedCards.splice(x, 1);
+            break;
+          }
+        }
+        setGameState({
+          ...gameState,
+          selectedCards: selectedCards,
+        });
+        setState({ ...state, selected: false });
+      }
+    }
+  }, [gameState.cancelTrade]);
   //update state when the "type" prop is changed
   useEffect(() => {
-      setState({...state, type: props.type})
-  }, [props.type])
+    setState({ ...state, type: props.type });
+  }, [props.type]);
   //update state when "highlighted" prop is changed
   useEffect(() => {
-      setState({...state, highlighted: props.highlighted})
-  }, [props.highlighted])
+    setState({ ...state, highlighted: props.highlighted });
+  }, [props.highlighted]);
   //set card image based on beanType
   let image;
   switch (props.type) {
@@ -127,20 +171,45 @@ function Card(props) {
     default:
   }
 
-  function cardClicked()
-  {
-    if(props.selectable)
-    {
-    setState({
-      ...state,
-      selected: true,
-      needsUpdate: true
-      });
+  function cardClicked() {
+    if (props.selectable && !gameState.startedTrade) {
+      if (state.selected) {
+        let selectedCards = gameState.selectedCards;
+        for (let x in selectedCards) {
+          if (selectedCards.at(x) === state.type) {
+            selectedCards.splice(x, 1);
+            break;
+          }
+        }
+        setGameState({
+          ...gameState,
+          selectedCards: selectedCards,
+        });
+        setState({
+          ...state,
+          selected: false,
+        });
+      } else {
+        setGameState({
+          ...gameState,
+          selectedCards: [...gameState.selectedCards, state.type],
+        });
+        setState({
+          ...state,
+          selected: true,
+        });
+      }
+    } else if (props.selectable && gameState.startedTrade) {
+      alert("Must finish trade first!");
     }
   }
 
   return (
-    <div className="Card" hidden={state.hidden} style={{opacity:state.opacity, left: state.xPos, top: state.yPos }}>
+    <div
+      className="Card"
+      hidden={state.hidden}
+      style={{ opacity: state.opacity, left: state.xPos, top: state.yPos }}
+    >
       <img
         onClick={cardClicked}
         className="bean-image"

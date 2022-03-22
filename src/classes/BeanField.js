@@ -3,7 +3,7 @@ import Card from "../classes/Card.js";
 import leftField from "../Images/1stBeanField.PNG";
 import rightField from "../Images/2ndBeanField.PNG";
 import coinImage from "../Images/coin.jpg";
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 function BeanField(props) {
   //initial gameState variables
@@ -63,24 +63,22 @@ function BeanField(props) {
   //set coinTarget based on coinCount and beanType
   let coinTarget = 0;
   if (coinCount < temp.length) {
-    coinTarget = temp.at(coinCount)
+    coinTarget = temp.at(coinCount);
   } else {
-    coinTarget = temp.at(temp.length - 1)
+    coinTarget = temp.at(temp.length - 1);
   }
   //initialize state variables based on props
-  const [state, setState] = useState(
-    {
-      'x': props.x,
-      'y': props.y,
-      'cardType': props.type,
-      'cardCount': props.cardCount,
-      'addCoins': props.addCoins,
-      'fieldNum': props.fieldNum,
-      'coinReq': temp,
-      'coinCount': coinCount,
-      'coinTarget': coinTarget
-    }
-  );
+  const [state, setState] = useState({
+    x: props.x,
+    y: props.y,
+    cardType: props.type,
+    cardCount: props.cardCount,
+    addCoins: props.addCoins,
+    fieldNum: props.fieldNum,
+    coinReq: temp,
+    coinCount: coinCount,
+    coinTarget: coinTarget,
+  });
 
   useEffect(() => {
     let temp = [null];
@@ -128,97 +126,129 @@ function BeanField(props) {
     //set coinTarget based on coinCount and beanType
     let coinTarget = 0;
     if (coinCount < temp.length) {
-      coinTarget = temp.at(coinCount)
+      coinTarget = temp.at(coinCount);
     } else {
-      coinTarget = temp.at(temp.length - 1)
+      coinTarget = temp.at(temp.length - 1);
     }
-    if(state.cardType===""){
-      coinCount=0;
-      coinTarget=0;
+    if (state.cardType === "") {
+      coinCount = 0;
+      coinTarget = 0;
     }
     setState({
       ...state,
       coinReq: temp,
       coinCount: coinCount,
-      coinTarget: coinTarget
+      coinTarget: coinTarget,
     });
-  }, [state.cardType,state.cardCount])
-  
-  
+  }, [state.cardType, state.cardCount]);
+
   function harvest() {
     //update player coin total
     setGameState({
       ...gameState,
-      myCoinCount: gameState.myCoinCount + state.coinCount
+      myCoinCount: gameState.myCoinCount + state.coinCount,
     });
     //reset beanfield to empty
     setState({
       ...state,
       cardType: "",
-      cardCount: 0
+      cardCount: 0,
     });
   }
   function plant() {
     //reset beanfield to empty
     const cards = gameState.selectedCards;
-    let allowPlant = true;
-    if (state.cardType === "") {
-      const firstCard = cards.at(0).type;
-      for (let i = 0; i < cards.length; i++) {
-        if (cards.at(i).type !== firstCard) {
-          allowPlant = false;
+    if (cards.length > 0) {
+      let allowPlant = true;
+      if (gameState.startTrading) {
+        alert("Finish trade before planting");
+      } else if (state.cardType === "") {
+        const firstCard = cards.at(0);
+        for (let i = 0; i < cards.length; i++) {
+          if (cards.at(i) !== firstCard) {
+            allowPlant = false;
+          }
         }
-      }
-      if (allowPlant) {
-        setState({
-          ...state,
-          cardType: firstCard,
-          cardCount: cards.length
-        });
-        setGameState({
-          ...gameState,
-          selectedCards: []
-        });
-      } else {
-        alert("All selected cards must match the beanfield")
-      }
-    } else {
-      for (let i = 0; i < cards.length; i++) {
-        if (cards.at(i).type !== state.cardType) {
-          allowPlant = false;
+        if (allowPlant) {
+          setState({
+            ...state,
+            cardType: firstCard,
+            cardCount: cards.length,
+          });
+          setGameState({
+            ...gameState,
+            justPlanted: true,
+            selectedCards: [],
+          });
+        } else {
+          alert("All selected cards must match the beanfield");
         }
-      }
-      if (allowPlant) {
-        setState({
-          ...state,
-          cardCount: state.cardCount + cards.length
-        });
-        setGameState({
-          ...gameState,
-          selectedCards: []
-        });
       } else {
-        alert("All selected cards must match the beanfield")
+        for (let i = 0; i < cards.length; i++) {
+          if (cards.at(i) !== state.cardType) {
+            allowPlant = false;
+          }
+        }
+        if (allowPlant) {
+          setState({
+            ...state,
+            cardCount: state.cardCount + cards.length,
+          });
+          setGameState({
+            ...gameState,
+            justPlanted: true,
+            selectedCards: [],
+          });
+        } else {
+          alert("All selected cards must match the beanfield");
+        }
       }
     }
-
-
-
   }
 
   return (
-    <div className="BeanField" style={{ position: "absolute", left: 50 + state.x + "vw", top: 50 + state.y + "vh", width: "6.5vw", height: state.cardCount + 19.1 + "vw" }}>
-      <button id="harvestButton"
-        style={{ position: "absolute", left: 0, top: 0, width: "6.5vw", height: "2vw" }}
-        onClick={harvest}>
+    <div
+      className="BeanField"
+      style={{
+        position: "absolute",
+        left: 50 + state.x + "vw",
+        top: 50 + state.y + "vh",
+        width: "6.5vw",
+        height: state.cardCount + 19.1 + "vw",
+      }}
+    >
+      <button
+        id="harvestButton"
+        style={{
+          position: "absolute",
+          left: 0,
+          top: 0,
+          width: "6.5vw",
+          height: "2vw",
+        }}
+        onClick={harvest}
+      >
         Harvest
       </button>
 
-      <img id="fieldImage" alt="" src={fieldImage} style={{ left: 0, top: 2 + "vw" }} />
+      <img
+        id="fieldImage"
+        alt=""
+        src={fieldImage}
+        style={{ left: 0, top: 2 + "vw" }}
+      />
       {(() => {
         const cards = [];
         for (let i = 0; i < state.cardCount; i++) {
-          cards.push(<Card type={state.cardType} x={0} y={5 + i + "vw"} />);
+          cards.push(
+            <Card
+              gameState={gameState}
+              setGameState={setGameState}
+              type={state.cardType}
+              x={0}
+              y={5 + i + "vw"}
+            />
+          );
         }
         return cards;
       })()}
@@ -226,17 +256,45 @@ function BeanField(props) {
       {(() => {
         const coinImgs = [];
         for (let i = 0; i < state.coinCount; i++) {
-          coinImgs.push(<img id="coinImage" alt="" src={coinImage} style={{ left: 1.6 * i + "vw", top: state.cardCount + 15.5 + "vw" }} />);
+          coinImgs.push(
+            <img
+              id="coinImage"
+              alt=""
+              src={coinImage}
+              style={{
+                left: 1.6 * i + "vw",
+                top: state.cardCount + 15.5 + "vw",
+              }}
+            />
+          );
         }
         return coinImgs;
       })()}
 
-      <text id="coinProgress" style={{ position: "absolute", textAlign: "center", left: 0, width: "6.5vw", top: state.cardCount + 14 + "vw", height: "1.5vw" }}>
+      <text
+        id="coinProgress"
+        style={{
+          position: "absolute",
+          textAlign: "center",
+          left: 0,
+          width: "6.5vw",
+          top: state.cardCount + 14 + "vw",
+          height: "1.5vw",
+        }}
+      >
         {state.cardCount}/{state.coinTarget}
       </text>
-      <button id="plantButton"
-        style={{ position: "absolute", left: 0, top: state.cardCount + 17 + "vw", width: "6.5vw", height: "2vw" }}
-        onClick={plant}>
+      <button
+        id="plantButton"
+        style={{
+          position: "absolute",
+          left: 0,
+          top: state.cardCount + 17 + "vw",
+          width: "6.5vw",
+          height: "2vw",
+        }}
+        onClick={plant}
+      >
         Plant
       </button>
     </div>

@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 import BeanField from "../classes/BeanField.js";
 import Deck from "../classes/Deck.js";
 import InfoCard from "../classes/InfoCard.js";
@@ -9,26 +9,52 @@ import nextTurnImage from "../Images/nextTurnImage.jpg";
 import "./ActiveGame.css";
 
 function ActiveGame() {
-  //initialize overall game variables and functions
-  const [gameState, setGameState] = useState(
-    {
-      'myCoinCount': 0,
-      'gameStatus': "PlantSecondOrFlip2",
-      'selectedCards': [],
-      'tradeTableState': {},
-      'setTradeTableState': ()=>{},
-      'playerHandState': {},
-      'setPlayerHandState': ()=>{}
+  //initialize game state
+  const [gameState, setGameState] = useState({
+    myCoinCount: 0,
+    gameStatus: "PlantSecondOrFlip2",
+    selectedCards: [],
+    justPlanted: false,
+    startedTrade: false,
+    finishTrade: false,
+    cancelTrade: false,
+  });
+  useEffect(() => {
+    //update opacity
+    if (gameState.selectedCards.length === 0 && gameState.justPlanted) {
+      setGameState({
+        ...gameState,
+        justPlanted: false,
+      });
     }
-  );
+  }, [gameState.justPlanted]);
+
+  useEffect(() => {
+    if (gameState.selectedCards.length === 0 && gameState.finishTrade) {
+      setGameState({
+        ...gameState,
+        finishTrade: false,
+      });
+    }
+  }, [gameState.finishTrade]);
+
+  useEffect(() => {
+    if (gameState.selectedCards.length === 0 && gameState.cancelTrade) {
+      setGameState({
+        ...gameState,
+        cancelTrade: false,
+      });
+    }
+  }, [gameState.cancelTrade]);
   function nextTurn() {
     if (gameState.gameStatus === "Flipped2Cards") {
       setGameState({
         ...gameState,
-        gameStatus: "PlantSecondOrFlip2"
+        gameStatus: "PlantSecondOrFlip2",
       });
     }
   }
+
   return (
     <div className="Active-game">
       <InfoCard
@@ -54,7 +80,9 @@ function ActiveGame() {
       />
       <Deck gameState={gameState} setGameState={setGameState} />
       <TradeTable gameState={gameState} setGameState={setGameState} />
-      <BeanField gameState={gameState} setGameState={setGameState}
+      <BeanField
+        gameState={gameState}
+        setGameState={setGameState}
         className="leftField"
         cardCount={9}
         fieldNum={1}
@@ -62,7 +90,9 @@ function ActiveGame() {
         x={-7.8}
         y={-18}
       />
-      <BeanField gameState={gameState} setGameState={setGameState}
+      <BeanField
+        gameState={gameState}
+        setGameState={setGameState}
         className="rightField"
         cardCount={3}
         fieldNum={2}
@@ -70,7 +100,7 @@ function ActiveGame() {
         x={1.7}
         y={-18}
       />
-      <PlayerHand gameState={gameState} setGameState={setGameState}/>
+      <PlayerHand gameState={gameState} setGameState={setGameState} />
       <button
         id="Next-turn"
         style={{
@@ -79,7 +109,7 @@ function ActiveGame() {
           bottom: 0,
           width: "4vw",
           height: "4vw",
-          backgroundImage: `url(${nextTurnImage})`
+          backgroundImage: `url(${nextTurnImage})`,
         }}
         onClick={nextTurn}
       ></button>
