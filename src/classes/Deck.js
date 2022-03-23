@@ -6,7 +6,7 @@ import Card from "./Card";
 function Deck(props) {
   let gameState = props.gameState;
   let setGameState = props.setGameState;
-  //add all cards to deck
+  //=====================Initialize "deck" array for setState=====================
   let temp = [];
   for (let i = 0; i < 24; i++) {
     temp.push("coffee");
@@ -49,13 +49,21 @@ function Deck(props) {
     temp[location1] = temp[location2];
     temp[location2] = tmp;
   }
-  //initialize deck and both flipped beans
+  //=====================Initialize "deckBoxShadow" variable for setState=====================
+  let deckBoxShadow = "";
+  if (gameState.gameStatus === "plantSecondOrFlip2") {
+    deckBoxShadow = "0 0 0 0.3vw #fde32c";
+  } else {
+    deckBoxShadow = "0 0 0 0px #fde32c";
+  }
+  //=====================Initialize deck state=====================
   const [state, setState] = useState({
     deck: temp,
     leftBean: "",
     rightBean: "",
+    deckBoxShadow: ""
   });
-  //initialize functions
+  //=====================Initialize shuffle function=====================
   function shuffle(deckArray) {
     // for 1000 turns
     // switch the values of two random cards
@@ -72,14 +80,9 @@ function Deck(props) {
       deck: deckArray,
     });
   }
-  let deckBoxShadow = "";
-  if (gameState.gameStatus === "PlantSecondOrFlip2") {
-    deckBoxShadow = "0 0 0 0.3vw #fde32c";
-  } else {
-    deckBoxShadow = "0 0 0 0px #fde32c";
-  }
+  //=====================Handle when the deck is clicked=====================
   function deckClicked() {
-    if (gameState.gameStatus === "PlantSecondOrFlip2") {
+    if (gameState.gameStatus === "plantSecondOrFlip2") {
       let tempDeck = state.deck;
       let tempLeftBean = "";
       let tempRightBean = "";
@@ -101,11 +104,11 @@ function Deck(props) {
       });
       setGameState({
         ...gameState,
-        gameStatus: "Flipped2Cards",
+        gameStatus: "flipped2Cards",
       });
     }
   }
-
+  //=====================Display the deck and the two flipped cards=====================
   return (
     <div className="Deck" onClick={deckClicked}>
       <img

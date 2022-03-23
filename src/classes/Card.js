@@ -17,7 +17,7 @@ function Card(props) {
   //initial gameState variables
   let gameState = props.gameState;
   let setGameState = props.setGameState;
-  //initialize css variables
+  //=====================Initialize css variables for setState=====================
   let hidden;
   if (props.type === "") {
     hidden = true;
@@ -30,7 +30,7 @@ function Card(props) {
   } else {
     boxShadow = "0 0 0 0px #fde32c";
   }
-  //initialize state variables based on props
+  //=====================Initialize state variables based on props=====================
   const [state, setState] = useState({
     hidden: hidden,
     highlighted: props.highlighted,
@@ -42,7 +42,7 @@ function Card(props) {
     opacity: 1,
     needsUpdate: false,
   });
-  //handle state change
+  //=====================Handle "type" variable changing=====================
   useEffect(() => {
     //update hidden
     if (state.type === "") {
@@ -51,6 +51,7 @@ function Card(props) {
       setState({ ...state, hidden: false });
     }
   }, [state.type]);
+  //=====================Handle "highlighted" variable changing=====================
   useEffect(() => {
     //update border
     if (state.highlighted) {
@@ -59,6 +60,7 @@ function Card(props) {
       setState({ ...state, boxShadow: "0 0 0 0vw #fde32c" });
     }
   }, [state.highlighted]);
+  //=====================Handle "selected" variable changing=====================
   useEffect(() => {
     //update opacity
     if (state.selected) {
@@ -67,8 +69,9 @@ function Card(props) {
       setState({ ...state, opacity: 1 });
     }
   }, [state.selected]);
+  //=====================Handle "justPlanted" gamestate variable changing=====================
   useEffect(() => {
-    //update opacity
+    //if card was selected hide it and remove it from the selectedCards array in gamestate
     if (gameState.justPlanted) {
       if (state.selected) {
         let selectedCards = gameState.selectedCards;
@@ -86,9 +89,9 @@ function Card(props) {
       }
     }
   }, [gameState.justPlanted]);
+  //=====================Handle "tradeStatus" gamestate variable changing=====================
   useEffect(() => {
-    //update opacity
-    if (gameState.finishTrade) {
+    if (gameState.tradeStatus==="confirmTrade") {
       if (state.selected) {
         let selectedCards = gameState.selectedCards;
         for (let x in selectedCards) {
@@ -103,11 +106,7 @@ function Card(props) {
         });
         setState({ ...state, hidden: true, type: "", selected: false });
       }
-    }
-  }, [gameState.finishTrade]);
-  useEffect(() => {
-    //update opacity
-    if (gameState.cancelTrade) {
+    }else if (gameState.tradeStatus==="cancelTrade") {
       if (state.selected) {
         let selectedCards = gameState.selectedCards;
         for (let x in selectedCards) {
@@ -123,16 +122,16 @@ function Card(props) {
         setState({ ...state, selected: false });
       }
     }
-  }, [gameState.cancelTrade]);
-  //update state when the "type" prop is changed
+  }, [gameState.tradeStatus]);
+  //=====================Update state when the "type" prop is changed=====================
   useEffect(() => {
     setState({ ...state, type: props.type });
   }, [props.type]);
-  //update state when "highlighted" prop is changed
+  //=====================Update state when "highlighted" prop is changed=====================
   useEffect(() => {
     setState({ ...state, highlighted: props.highlighted });
   }, [props.highlighted]);
-  //set card image based on beanType
+  //=====================Set card image based on beanType=====================
   let image;
   switch (props.type) {
     case "cocoa":
@@ -170,9 +169,10 @@ function Card(props) {
       break;
     default:
   }
-
+  //=====================Handle this card being clicked=====================
   function cardClicked() {
     if (props.selectable && !gameState.startedTrade) {
+      //unselect card if it was selected
       if (state.selected) {
         let selectedCards = gameState.selectedCards;
         for (let x in selectedCards) {
@@ -189,6 +189,7 @@ function Card(props) {
           ...state,
           selected: false,
         });
+      //select card if it was not selected
       } else {
         setGameState({
           ...gameState,
@@ -203,7 +204,7 @@ function Card(props) {
       alert("Must finish trade first!");
     }
   }
-
+  //=====================Display this card=====================
   return (
     <div
       className="Card"

@@ -9,18 +9,17 @@ import nextTurnImage from "../Images/nextTurnImage.jpg";
 import "./ActiveGame.css";
 
 function ActiveGame() {
-  //initialize game state
+  //=====================Initialize game state=====================
   const [gameState, setGameState] = useState({
     myCoinCount: 0,
-    gameStatus: "PlantSecondOrFlip2",
-    selectedCards: [],
+    gameStatus: "plantSecondOrFlip2",
+    tradeStatus: "notTrading",
     justPlanted: false,
-    startedTrade: false,
-    finishTrade: false,
-    cancelTrade: false,
+    selectedCards: [],
+    highlightedCards: [],
   });
+  //=====================Once all selected cards have been planted reset justPlanted bool=====================
   useEffect(() => {
-    //update opacity
     if (gameState.selectedCards.length === 0 && gameState.justPlanted) {
       setGameState({
         ...gameState,
@@ -28,35 +27,32 @@ function ActiveGame() {
       });
     }
   }, [gameState.justPlanted]);
-
+  //=====================Once trade has been confirmed or canceled reset tradeStatus=====================
   useEffect(() => {
-    if (gameState.selectedCards.length === 0 && gameState.finishTrade) {
-      setGameState({
-        ...gameState,
-        finishTrade: false,
-      });
+    if (gameState.selectedCards.length === 0) {
+      if (
+        gameState.tradeStatus === "confirmTrade" ||
+        gameState.tradeStatus === "cancelTrade"
+      )
+        setGameState({
+          ...gameState,
+          finishTrade: false,
+          tradeStatus: "notTrading",
+        });
     }
-  }, [gameState.finishTrade]);
-
-  useEffect(() => {
-    if (gameState.selectedCards.length === 0 && gameState.cancelTrade) {
-      setGameState({
-        ...gameState,
-        cancelTrade: false,
-      });
-    }
-  }, [gameState.cancelTrade]);
+  }, [gameState.tradeStatus]);
+  //=====================Handle next turn button=====================
   function nextTurn() {
-    if (gameState.gameStatus === "Flipped2Cards") {
+    if (gameState.gameStatus === "flipped2Cards") {
       setGameState({
         ...gameState,
-        gameStatus: "PlantSecondOrFlip2",
+        gameStatus: "plantSecondOrFlip2",
       });
     }
   }
-
+  //=====================Display active game=====================
   return (
-    <div className="Active-game">
+    <div className="ActiveGame">
       <InfoCard
         username="wheathin"
         leftBeanType="chili"
@@ -102,7 +98,7 @@ function ActiveGame() {
       />
       <PlayerHand gameState={gameState} setGameState={setGameState} />
       <button
-        id="Next-turn"
+        id="nextTurn"
         style={{
           position: "absolute",
           right: 0,

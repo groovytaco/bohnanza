@@ -9,14 +9,7 @@ function BeanField(props) {
   //initial gameState variables
   let gameState = props.gameState;
   let setGameState = props.setGameState;
-  //initialize fieldImage based on fieldNum
-  let fieldImage;
-  if (props.fieldNum === 1) {
-    fieldImage = leftField;
-  } else if (props.fieldNum === 2) {
-    fieldImage = rightField;
-  }
-  //initialize coinReq based on bean type
+  //=====================Initialize coinReq variable for setState=====================
   let temp = [null];
   switch (props.type) {
     case "cocoa":
@@ -54,20 +47,21 @@ function BeanField(props) {
       break;
     default:
   }
-  //set coinCount based on cardCount and beanType
+  //=====================Initialize coinCount and coinTarget variables for setState=====================
+  //set coinCount
   let i = 0;
   while (props.cardCount >= temp.at(i) && i < temp.length) {
     i++;
   }
   let coinCount = i;
-  //set coinTarget based on coinCount and beanType
+  //set coinTarget
   let coinTarget = 0;
   if (coinCount < temp.length) {
     coinTarget = temp.at(coinCount);
   } else {
     coinTarget = temp.at(temp.length - 1);
   }
-  //initialize state variables based on props
+  //=====================Initialize state variable based on props=====================
   const [state, setState] = useState({
     x: props.x,
     y: props.y,
@@ -79,8 +73,16 @@ function BeanField(props) {
     coinCount: coinCount,
     coinTarget: coinTarget,
   });
-
+  //initialize fieldImage based on fieldNum prop
+  let fieldImage;
+  if (props.fieldNum === 1) {
+    fieldImage = leftField;
+  } else if (props.fieldNum === 2) {
+    fieldImage = rightField;
+  }
+  //=====================Update state when the "type" variable is changed=====================
   useEffect(() => {
+    //Update coinReq
     let temp = [null];
     switch (state.cardType) {
       case "cocoa":
@@ -118,12 +120,13 @@ function BeanField(props) {
         break;
       default:
     }
+    //Update coinCount
     let i = 0;
     while (state.cardCount >= temp.at(i) && i < temp.length) {
       i++;
     }
     let coinCount = i;
-    //set coinTarget based on coinCount and beanType
+    //Update coinTarget
     let coinTarget = 0;
     if (coinCount < temp.length) {
       coinTarget = temp.at(coinCount);
@@ -134,6 +137,7 @@ function BeanField(props) {
       coinCount = 0;
       coinTarget = 0;
     }
+    //Update state
     setState({
       ...state,
       coinReq: temp,
@@ -141,28 +145,30 @@ function BeanField(props) {
       coinTarget: coinTarget,
     });
   }, [state.cardType, state.cardCount]);
-
+  //=====================Handle harvest button=====================
   function harvest() {
-    //update player coin total
+    //Update player coin total
     setGameState({
       ...gameState,
       myCoinCount: gameState.myCoinCount + state.coinCount,
     });
-    //reset beanfield to empty
+    //Reset beanfield to empty
     setState({
       ...state,
       cardType: "",
       cardCount: 0,
     });
   }
+  //=====================Handle plant button=====================
   function plant() {
-    //reset beanfield to empty
     const cards = gameState.selectedCards;
     if (cards.length > 0) {
       let allowPlant = true;
       if (gameState.startTrading) {
         alert("Finish trade before planting");
+      //Handle planting when beanField is empty
       } else if (state.cardType === "") {
+        //Make sure all selected cards are the same type
         const firstCard = cards.at(0);
         for (let i = 0; i < cards.length; i++) {
           if (cards.at(i) !== firstCard) {
@@ -183,7 +189,9 @@ function BeanField(props) {
         } else {
           alert("All selected cards must match the beanfield");
         }
+      //Handle planting when beanField is not empty
       } else {
+        //Make sure all selected cards are the same type as the beanField
         for (let i = 0; i < cards.length; i++) {
           if (cards.at(i) !== state.cardType) {
             allowPlant = false;
@@ -205,7 +213,7 @@ function BeanField(props) {
       }
     }
   }
-
+  //=====================Display beanField=====================
   return (
     <div
       className="BeanField"

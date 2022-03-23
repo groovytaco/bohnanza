@@ -1,0 +1,15 @@
+//=====================React Components=====================
+1.Class names and component names are capitalized in Javascript and css (Ex. BeanField)
+2.IDs/Variable/Functions are not capitalized
+3.Components in ActiveGame get passed "gameState" and "setGameState"
+4.
+//=====================gameStatus Values=====================
+1."plantFirstCard"
+2."plantSecondOrFlip2"
+3."flipped2Cards"
+4."waitingForTurn"
+//=====================tradeStatus Values=====================
+1."notTrading"
+2."trading"
+3."confirmTrade"
+4."cancelTrade"
