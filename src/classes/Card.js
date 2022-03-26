@@ -171,7 +171,7 @@ function Card(props) {
   }
   //=====================Handle this card being clicked=====================
   function cardClicked() {
-    if (props.selectable && !gameState.startedTrade) {
+    if (props.selectable && gameState.tradeStatus==="notTrading") {
       //unselect card if it was selected
       if (state.selected) {
         let selectedCards = gameState.selectedCards;

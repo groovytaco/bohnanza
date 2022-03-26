@@ -1,6 +1,6 @@
 import "./Deck.css";
 import DeckImage from "../Images/Deck.jpg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Card from "./Card";
 
 function Deck(props) {
@@ -96,11 +96,13 @@ function Deck(props) {
         tempDeck.pop();
         tempRightBean = "Null";
       }
+      alert(tempLeftBean)
+      alert(tempRightBean)
       setState({
         ...state,
         deck: tempDeck,
         leftBean: tempLeftBean,
-        rightBean: tempRightBean,
+        rightBean: tempRightBean
       });
       setGameState({
         ...gameState,
@@ -108,6 +110,17 @@ function Deck(props) {
       });
     }
   }
+   //=====================
+   useEffect(() => {
+    if(gameState.gameStatus==="plantSecondOrFlip2")
+    {
+      setState({
+        ...state,
+        leftBean: "",
+        rightBean: ""
+      });
+    }
+  }, [gameState.gameStatus]);
   //=====================Display the deck and the two flipped cards=====================
   return (
     <div className="Deck" onClick={deckClicked}>
