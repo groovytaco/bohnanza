@@ -91,22 +91,34 @@ function Card(props) {
   }, [gameState.justPlanted]);
   //=====================Handle "tradeStatus" gamestate variable changing=====================
   useEffect(() => {
-    if (gameState.tradeStatus==="confirmTrade") {
+    if (gameState.tradeStatus === "confirmTrade") {
       if (state.selected) {
+        //remove this card from the highlightedCards array
         let selectedCards = gameState.selectedCards;
+        let highlightedCards = gameState.highlightedCards;
         for (let x in selectedCards) {
           if (selectedCards.at(x) === state.type) {
             selectedCards.splice(x, 1);
             break;
           }
         }
+        if (state.highlighted) {
+          //remove this card from the highlightedCards array
+          for (let y in highlightedCards) {
+            if (highlightedCards.at(y) === state.type) {
+              highlightedCards.splice(y, 1);
+              break;
+            }
+          }
+        }
         setGameState({
           ...gameState,
           selectedCards: selectedCards,
+          highlightedCards: highlightedCards
         });
         setState({ ...state, hidden: true, type: "", selected: false });
       }
-    }else if (gameState.tradeStatus==="cancelTrade") {
+    } else if (gameState.tradeStatus === "cancelTrade") {
       if (state.selected) {
         let selectedCards = gameState.selectedCards;
         for (let x in selectedCards) {
@@ -189,7 +201,7 @@ function Card(props) {
           ...state,
           selected: false,
         });
-      //select card if it was not selected
+        //select card if it was not selected
       } else {
         setGameState({
           ...gameState,
