@@ -29,6 +29,11 @@
     font-weight: bolder;
     background-color: rgb(60, 61, 68);
 }
+#plantButton{
+    font-size: 1.2vw;
+    font-weight: bolder;
+    background-color: rgb(60, 61, 68);
+}
 #coinImage{
     position: absolute;
     width: 1.6vw;

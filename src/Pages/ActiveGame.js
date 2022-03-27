@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BeanField from "../classes/BeanField.js";
 import Deck from "../classes/Deck.js";
 import InfoCard from "../classes/InfoCard.js";
@@ -9,19 +9,50 @@ import nextTurnImage from "../Images/nextTurnImage.jpg";
 import "./ActiveGame.css";
 
 function ActiveGame() {
-  //initialize overall game variables and functions
-  const [myCoinCount, setMyCoinCount] = useState(0);
-  function addCoins(coins) {
-    setMyCoinCount(myCoinCount + coins);
-  }
-  const [gameStatus, setGameStatus] = useState("PlantSecondOrFlip2");
+  //=====================Initialize game state=====================
+  const [gameState, setGameState] = useState({
+    myCoinCount: 0,
+    gameStatus: "plantSecondOrFlip2",
+    tradeStatus: "notTrading",
+    justPlanted: false,
+    selectedCards: [],
+    highlightedCards: [],
+  });
+  //=====================Once all selected cards have been planted reset justPlanted bool=====================
+  useEffect(() => {
+    if (gameState.selectedCards.length === 0 && gameState.justPlanted) {
+      setGameState({
+        ...gameState,
+        justPlanted: false,
+      });
+    }
+  }, [gameState.justPlanted]);
+  //=====================Once trade has been confirmed or canceled reset tradeStatus=====================
+  useEffect(() => {
+    if (gameState.selectedCards.length === 0) {
+      if (
+        gameState.tradeStatus === "confirmTrade" ||
+        gameState.tradeStatus === "cancelTrade"
+      )
+        setGameState({
+          ...gameState,
+          finishTrade: false,
+          tradeStatus: "notTrading",
+        });
+    }
+  }, [gameState.tradeStatus]);
+  //=====================Handle next turn button=====================
   function nextTurn() {
-    if (gameStatus === "Flipped2Cards") {
-      setGameStatus("WaitingForTurn");
+    if (gameState.gameStatus === "flipped2Cards") {
+      setGameState({
+        ...gameState,
+        gameStatus: "plantSecondOrFlip2",
+      });
     }
   }
+  //=====================Display active game=====================
   return (
-    <div className="Active-game">
+    <div className="ActiveGame">
       <InfoCard
         username="wheathin"
         leftBeanType="chili"
@@ -43,40 +74,42 @@ function ActiveGame() {
         rightBeanType="blue"
         rightCardCount={7}
       />
-      <Deck changeGameStatus={setGameStatus} gameStatus={gameStatus} />
-      <TradeTable />
+      <Deck gameState={gameState} setGameState={setGameState} />
+      <TradeTable gameState={gameState} setGameState={setGameState} />
       <BeanField
-        addCoins={addCoins}
+        gameState={gameState}
+        setGameState={setGameState}
         className="leftField"
-        cardCount={12}
+        cardCount={9}
         fieldNum={1}
         type="coffee"
         x={-7.8}
         y={-18}
       />
       <BeanField
-        addCoins={addCoins}
+        gameState={gameState}
+        setGameState={setGameState}
         className="rightField"
-        cardCount={2}
+        cardCount={3}
         fieldNum={2}
         type="cocoa"
         x={1.7}
         y={-18}
       />
-      <PlayerHand />
+      <PlayerHand gameState={gameState} setGameState={setGameState} />
       <button
-        id="Next-turn"
+        id="nextTurn"
         style={{
           position: "absolute",
           right: 0,
           bottom: 0,
           width: "4vw",
           height: "4vw",
-          backgroundImage: `url(${nextTurnImage})`
+          backgroundImage: `url(${nextTurnImage})`,
         }}
         onClick={nextTurn}
       ></button>
-      <h1 id="gameStatus">{myCoinCount}</h1>
+      <h1 id="gameStatus">{gameState.myCoinCount}</h1>
     </div>
   );
 }

@@ -15,9 +15,9 @@
 }
 #tradeButton{
     position: absolute;
-    left: 0;
+    left: 2.25vw;
     top: 31.6vw;
-    width: 20vw ;
+    width: 17.75vw ;
     height: 2vw;
     font-size: large;
     font-weight: bold;
@@ -26,6 +26,16 @@
 #confirmButton{
     position: absolute;
     left: 20vw;
+    top: 31.6vw;
+    width: 2.25vw ;
+    height: 2vw;
+    font-size: large;
+    font-weight: bold;
+    background-color: rgb(60, 61, 68);
+}
+#cancelButton{
+    position: absolute;
+    left: 0;
     top: 31.6vw;
     width: 2.25vw ;
     height: 2vw;
