@@ -94,7 +94,7 @@ function Deck(props) {
       } else if (tempDeck.length === 1) {
         tempLeftBean = tempDeck.at(tempDeck.length - 1);
         tempDeck.pop();
-        tempRightBean = "Null";
+        tempRightBean = "";
       }
       alert(tempLeftBean)
       alert(tempRightBean)
@@ -107,6 +107,7 @@ function Deck(props) {
       setGameState({
         ...gameState,
         gameStatus: "flipped2Cards",
+        highlightedCards: [...gameState.highlightedCards, tempLeftBean, tempRightBean]
       });
     }
   }

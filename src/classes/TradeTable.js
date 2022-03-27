@@ -29,7 +29,7 @@ function TradeTable(props) {
     if (state.bottomCards.length > 0) {
       setState({
         ...state,
-        bottomCards: [],
+        bottomCards: []
       });
       setGameState({
         ...gameState,

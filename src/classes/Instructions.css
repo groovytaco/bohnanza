@@ -1,0 +1,32 @@
+.Container
+{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: stretch;
+    height: stretch;
+    pointer-events:none;
+}
+#Instructions
+{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: stretch;
+    height: stretch;
+    background: rgba(128, 128, 128, 0.623);
+}
+#image
+{
+  position: absolute;
+  left:25vw;
+  top:0;
+  width: 50vw;
+  height: 100vh;
+}
+#openInstructions
+{
+    background-color: transparent;
+    background-size: cover;
+    background-position: center;
+}

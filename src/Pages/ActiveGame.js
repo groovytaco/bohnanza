@@ -5,6 +5,7 @@ import Deck from "../classes/Deck.js";
 import InfoCard from "../classes/InfoCard.js";
 import TradeTable from "../classes/TradeTable.js";
 import PlayerHand from "../classes/PlayerHand.js";
+import Instructions from "../classes/Instructions.js";
 import nextTurnImage from "../Images/nextTurnImage.jpg";
 import "./ActiveGame.css";
 
@@ -44,10 +45,12 @@ function ActiveGame() {
   //=====================Handle next turn button=====================
   function nextTurn() {
     if (gameState.gameStatus === "flipped2Cards") {
-      setGameState({
-        ...gameState,
-        gameStatus: "plantSecondOrFlip2",
-      });
+      if (gameState.highlightedCards.length === 0) {
+        setGameState({
+          ...gameState,
+          gameStatus: "plantSecondOrFlip2",
+        });
+      }
     }
   }
   //=====================Display active game=====================
@@ -110,6 +113,7 @@ function ActiveGame() {
         onClick={nextTurn}
       ></button>
       <h1 id="gameStatus">{gameState.myCoinCount}</h1>
+      <Instructions />
     </div>
   );
 }
