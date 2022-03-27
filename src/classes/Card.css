@@ -11,3 +11,24 @@
   box-shadow: 0 0 0 0.1vw #fde32c;
   border-radius: 0.6vw;
 }
+@-webkit-keyframes bean-image {    
+  from, to {    
+      border-color: transparent  
+      shad  
+  }    
+  50% {    
+      border-color: #fde32c    
+  }    
+}    
+@keyframes bean-image {    
+  from, to {    
+    box-shadow: 0 0 0 0.1vw transparent;    
+  }    
+  50% {    
+      box-shadow: 0 0 0 0.1vw #fde32c;    
+  }    
+}    
+.bean-image:hover {
+  -webkit-animation: borderBlink 1s step-end infinite;    
+  animation: borderBlink 1s step-end infinite;  
+}

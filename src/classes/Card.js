@@ -10,139 +10,105 @@ import chili from "../Beans/Chili.jpg";
 import blue from "../Beans/Blue.jpg";
 import wax from "../Beans/Wax.jpg";
 import coffee from "../Beans/Coffee.jpg";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./Card.css";
 
 function Card(props) {
-  //initial gameState variables
-  let gameState = props.gameState;
-  let setGameState = props.setGameState;
   //=====================Initialize css variables for setState=====================
-  let hidden;
+  let tempHidden;
   if (props.type === "") {
-    hidden = true;
+    tempHidden = true;
   } else {
-    hidden = false;
+    tempHidden = false;
   }
-  let boxShadow = "";
+  const [hidden, setHidden] = useState(tempHidden);
+  let tempBoxShadow = "";
   if (props.highlighted) {
-    boxShadow = "0 0 0 0.3vw #fde32c";
+    tempBoxShadow = "0 0 0 0.3vw #fde32c";
   } else {
-    boxShadow = "0 0 0 0px #fde32c";
+    tempBoxShadow = "0 0 0 0px #fde32c";
   }
+  const [boxShadow, setBoxShadow] = useState("notTrading");
   //=====================Initialize state variables based on props=====================
-  const [state, setState] = useState({
-    hidden: hidden,
-    highlighted: props.highlighted,
-    boxShadow: boxShadow,
-    type: props.type,
-    xPos: props.x,
-    yPos: props.y,
-    selected: false,
-    opacity: 1,
-    needsUpdate: false,
-  });
-  //=====================Handle "type" variable changing=====================
-  useEffect(() => {
-    //update hidden
-    if (state.type === "") {
-      setState({ ...state, hidden: true });
-    } else {
-      setState({ ...state, hidden: false });
-    }
-  }, [state.type]);
-  //=====================Handle "highlighted" variable changing=====================
-  useEffect(() => {
-    //update border
-    if (state.highlighted) {
-      setState({ ...state, boxShadow: "0 0 0 0.3vw #fde32c" });
-    } else {
-      setState({ ...state, boxShadow: "0 0 0 0vw #fde32c" });
-    }
-  }, [state.highlighted]);
+  const [highlighted, setHighlighted] = useState(props.highlighted);
+  const [type, setType] = useState(props.type);
+  const [selected, setSelected] = useState(false);
+  const [opacity, setOpacity] = useState(1);
   //=====================Handle "selected" variable changing=====================
-  useEffect(() => {
-    //update opacity
-    if (state.selected) {
-      setState({ ...state, opacity: 0.1 });
-    } else {
-      setState({ ...state, opacity: 1 });
-    }
-  }, [state.selected]);
+  if (props.selected) {
+    setOpacity(0.1);
+  } else {
+    setOpacity(1);
+  }
   //=====================Handle "justPlanted" gamestate variable changing=====================
-  useEffect(() => {
-    //if card was selected hide it and remove it from the selectedCards array in gamestate
-    if (gameState.justPlanted) {
-      if (state.selected) {
-        let selectedCards = gameState.selectedCards;
-        for (let x in selectedCards) {
-          if (selectedCards.at(x) === state.type) {
-            selectedCards.splice(x, 1);
-            break;
-          }
+  //if card was selected hide it and remove it from the selectedCards array in gamestate
+  if (props.justPlanted) {
+    if (selected) {
+      //remove this card from the highlightedCards array
+      let selectedCards = props.selectedCards;
+      let highlightedCards = props.highlightedCards;
+      for (let x in selectedCards) {
+        if (selectedCards.at(x) === type) {
+          selectedCards.splice(x, 1);
+          break;
         }
-        setGameState({
-          ...gameState,
-          selectedCards: selectedCards,
-        });
-        setState({ ...state, hidden: true, type: "", selected: false });
       }
-    }
-  }, [gameState.justPlanted]);
-  //=====================Handle "tradeStatus" gamestate variable changing=====================
-  useEffect(() => {
-    if (gameState.tradeStatus === "confirmTrade") {
-      if (state.selected) {
+      if (highlighted) {
         //remove this card from the highlightedCards array
-        let selectedCards = gameState.selectedCards;
-        let highlightedCards = gameState.highlightedCards;
-        for (let x in selectedCards) {
-          if (selectedCards.at(x) === state.type) {
-            selectedCards.splice(x, 1);
+        for (let y in highlightedCards) {
+          if (highlightedCards.at(y) === type) {
+            highlightedCards.splice(y, 1);
             break;
           }
         }
-        if (state.highlighted) {
-          //remove this card from the highlightedCards array
-          for (let y in highlightedCards) {
-            if (highlightedCards.at(y) === state.type) {
-              highlightedCards.splice(y, 1);
-              break;
-            }
-          }
-        }
-        setGameState({
-          ...gameState,
-          selectedCards: selectedCards,
-          highlightedCards: highlightedCards
-        });
-        setState({ ...state, hidden: true, type: "", selected: false });
       }
-    } else if (gameState.tradeStatus === "cancelTrade") {
-      if (state.selected) {
-        let selectedCards = gameState.selectedCards;
-        for (let x in selectedCards) {
-          if (selectedCards.at(x) === state.type) {
-            selectedCards.splice(x, 1);
-            break;
-          }
-        }
-        setGameState({
-          ...gameState,
-          selectedCards: selectedCards,
-        });
-        setState({ ...state, selected: false });
-      }
+      props.setSelectedCards(selectedCards);
+      props.setHighlightedCards(highlightedCards);
+      setHidden(true);
+      setType("");
+      setSelected(false);
     }
-  }, [gameState.tradeStatus]);
-  //=====================Update state when the "type" prop is changed=====================
-  useEffect(() => {
-    setState({ ...state, type: props.type });
-  }, [props.type]);
-  //=====================Update state when "highlighted" prop is changed=====================
-  useEffect(() => {
-    setState({ ...state, highlighted: props.highlighted });
-  }, [props.highlighted]);
+  }
+  //=====================Handle "tradeStatus" gamestate variable changing=====================
+  if (props.tradeStatus === "confirmTrade") {
+    if (selected) {
+      //remove this card from the highlightedCards array
+      let selectedCards = props.selectedCards;
+      let highlightedCards = props.highlightedCards;
+      for (let x in selectedCards) {
+        if (selectedCards.at(x) === type) {
+          selectedCards.splice(x, 1);
+          break;
+        }
+      }
+      if (highlighted) {
+        //remove this card from the highlightedCards array
+        for (let y in highlightedCards) {
+          if (highlightedCards.at(y) === type) {
+            highlightedCards.splice(y, 1);
+            break;
+          }
+        }
+      }
+      props.setSelectedCards(selectedCards);
+      props.setHighlightedCards(highlightedCards);
+      setHidden(true);
+      setType("");
+      setSelected(false);
+    }
+  } else if (props.tradeStatus === "cancelTrade") {
+    if (selected) {
+      let selectedCards = props.selectedCards;
+      for (let x in selectedCards) {
+        if (selectedCards.at(x) === type) {
+          selectedCards.splice(x, 1);
+          break;
+        }
+      }
+      props.setSelectedCards(selectedCards);
+      setSelected(false);
+    }
+  }
   //=====================Set card image based on beanType=====================
   let image;
   switch (props.type) {
@@ -183,36 +149,25 @@ function Card(props) {
   }
   //=====================Handle this card being clicked=====================
   function cardClicked() {
-    if (props.selectable && gameState.tradeStatus==="notTrading") {
+    if (props.selectable && props.tradeStatus === "notTrading") {
       //unselect card if it was selected
-      if (state.selected) {
-        let selectedCards = gameState.selectedCards;
+      if (selected) {
+        let selectedCards = props.selectedCards;
         for (let x in selectedCards) {
-          if (selectedCards.at(x) === state.type) {
+          if (selectedCards.at(x) === type) {
             selectedCards.splice(x, 1);
             break;
           }
         }
-        setGameState({
-          ...gameState,
-          selectedCards: selectedCards,
-        });
-        setState({
-          ...state,
-          selected: false,
-        });
+        props.setSelectedCards(selectedCards);
+        setSelected(false);
         //select card if it was not selected
       } else {
-        setGameState({
-          ...gameState,
-          selectedCards: [...gameState.selectedCards, state.type],
-        });
-        setState({
-          ...state,
-          selected: true,
-        });
+        props.setSelectedCards(...props.selectedCards, type);
+        setSelected(true);
       }
-    } else if (props.selectable && gameState.startedTrade) {
+    } else if (props.selectable && props.tradeStatus !== "notTrading") {
+      console.log(props.selectable, props.tradeStatus);
       alert("Must finish trade first!");
     }
   }
@@ -220,8 +175,8 @@ function Card(props) {
   return (
     <div
       className="Card"
-      hidden={state.hidden}
-      style={{ opacity: state.opacity, left: state.xPos, top: state.yPos }}
+      hidden={hidden}
+      style={{ opacity: opacity, left: props.x, top: props.y }}
     >
       <img
         onClick={cardClicked}
@@ -229,7 +184,7 @@ function Card(props) {
         src={image}
         alt=""
         style={{
-          boxShadow: state.boxShadow,
+          boxShadow: boxShadow,
         }}
       ></img>
     </div>

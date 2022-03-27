@@ -129,20 +129,21 @@ function InfoCard(props) {
 
   return (
     <div className="InfoCard">
-      <text id="usernameText">{username}</text>
+      <div id="usernameText">{username}</div>
       <img id="leftCardImage" src={leftImage} alt="leftImage" />
-      <text id="coinProgressLeft">
+      <div id="coinProgressLeft">
         {leftCardCount}/{leftCoinReq.at(leftCoinCount)}
-      </text>
+      </div>
       <img id="rightCardImage" src={rightImage} alt="rightImage" />
-      <text id="coinProgressRight">
+      <div id="coinProgressRight">
         {rightCardCount}/{rightCoinReq.at(rightCoinCount)}
-      </text>
+      </div>
       {(() => {
         const coinImgs = [];
         for (let i = 0; i < leftCoinCount; i++) {
           coinImgs.push(
             <img
+              key={i}
               id="coinImage"
               alt=""
               src={coinImage}
@@ -157,6 +158,7 @@ function InfoCard(props) {
         for (let i = 0; i < rightCoinCount; i++) {
           coinImgs.push(
             <img
+              key={i}
               id="coinImage"
               alt=""
               src={coinImage}

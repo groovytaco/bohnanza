@@ -1,12 +1,12 @@
 import "./Deck.css";
 import DeckImage from "../Images/Deck.jpg";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Card from "./Card";
 
 function Deck(props) {
-  let gameState = props.gameState;
-  let setGameState = props.setGameState;
-  //=====================Initialize "deck" array for setState=====================
+  const [leftBean, setLeftBean] = useState("");
+  const [rightBean, setRightBean] = useState("");
+  //=====================Initialize "deck" array=====================
   let temp = [];
   for (let i = 0; i < 24; i++) {
     temp.push("coffee");
@@ -49,20 +49,15 @@ function Deck(props) {
     temp[location1] = temp[location2];
     temp[location2] = tmp;
   }
-  //=====================Initialize "deckBoxShadow" variable for setState=====================
-  let deckBoxShadow = "";
-  if (gameState.gameStatus === "plantSecondOrFlip2") {
-    deckBoxShadow = "0 0 0 0.3vw #fde32c";
+  const [deck, setDeck] = useState(temp);
+  //=====================Initialize "deckBoxShadow" variable=====================
+  let tempDeckBoxShadow = "";
+  if (props.gameStatus === "plantSecondOrFlip2") {
+    tempDeckBoxShadow = "0 0 0 0.3vw #fde32c";
   } else {
-    deckBoxShadow = "0 0 0 0px #fde32c";
+    tempDeckBoxShadow = "0 0 0 0px #fde32c";
   }
-  //=====================Initialize deck state=====================
-  const [state, setState] = useState({
-    deck: temp,
-    leftBean: "",
-    rightBean: "",
-    deckBoxShadow: ""
-  });
+  const [deckBoxShadow, setDeckBoxShadow] = useState(tempDeckBoxShadow);
   //=====================Initialize shuffle function=====================
   function shuffle(deckArray) {
     // for 1000 turns
@@ -75,15 +70,12 @@ function Deck(props) {
       deckArray[location1] = deckArray[location2];
       deckArray[location2] = tmp;
     }
-    setState({
-      ...state,
-      deck: deckArray,
-    });
+    setDeck(deckArray);
   }
   //=====================Handle when the deck is clicked=====================
   function deckClicked() {
-    if (gameState.gameStatus === "plantSecondOrFlip2") {
-      let tempDeck = state.deck;
+    if (props.gameStatus === "plantSecondOrFlip2") {
+      let tempDeck = deck;
       let tempLeftBean = "";
       let tempRightBean = "";
       if (tempDeck.length >= 0) {
@@ -96,32 +88,17 @@ function Deck(props) {
         tempDeck.pop();
         tempRightBean = "";
       }
-      alert(tempLeftBean)
-      alert(tempRightBean)
-      setState({
-        ...state,
-        deck: tempDeck,
-        leftBean: tempLeftBean,
-        rightBean: tempRightBean
-      });
-      setGameState({
-        ...gameState,
-        gameStatus: "flipped2Cards",
-        highlightedCards: [...gameState.highlightedCards, tempLeftBean, tempRightBean]
-      });
+      setDeck(tempDeck);
+      setLeftBean(tempLeftBean);
+      setRightBean(tempRightBean);
+      props.setGameStatus("flipped2Cards");
+      props.setHighlightedCards([
+        ...props.highlightedCards,
+        tempLeftBean,
+        tempRightBean,
+      ]);
     }
   }
-   //=====================
-   useEffect(() => {
-    if(gameState.gameStatus==="plantSecondOrFlip2")
-    {
-      setState({
-        ...state,
-        leftBean: "",
-        rightBean: ""
-      });
-    }
-  }, [gameState.gameStatus]);
   //=====================Display the deck and the two flipped cards=====================
   return (
     <div className="Deck" onClick={deckClicked}>
@@ -133,23 +110,31 @@ function Deck(props) {
       />
       <Card
         id="leftBean"
-        gameState={gameState}
-        setGameState={setGameState}
         selectable={true}
         highlighted={true}
-        type={state.leftBean}
+        type={leftBean}
         x="15.5vw"
         y="1vw"
+        tradeStatus={props.tradeStatus}
+        justPlanted={props.justPlanted}
+        selectedCards={props.selectedCards}
+        setSelectedCards={props.setSelectedCards}
+        highlightedCards={props.highlightedCards}
+        setHighlightedCards={props.setHighlightedCards}
       />
       <Card
         id="rightBean"
-        gameState={gameState}
-        setGameState={setGameState}
         selectable={true}
         highlighted={true}
-        type={state.rightBean}
+        type={rightBean}
         x="25vw"
         y="1vw"
+        tradeStatus={props.tradeStatus}
+        justPlanted={props.justPlanted}
+        selectedCards={props.selectedCards}
+        setSelectedCards={props.setSelectedCards}
+        highlightedCards={props.highlightedCards}
+        setHighlightedCards={props.setHighlightedCards}
       />
     </div>
   );

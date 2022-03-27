@@ -10,45 +10,45 @@ function PlayerHand(props) {
       <div className="PlayerHand">
         <Card
           selectable={true}
-          gameState={gameState}
-          setGameState={setGameState}
+          gameStatus={props.gameStatus}
+      setGameStatus={props.setGameStatus}
+      tradeStatus={props.tradeStatus}
+      setTradeStatus={props.setTradeStatus}
+      justPlanted={props.justPlanted}
+      setJustPlanted={props.setJustPlanted}
+      selectedCards={props.selectedCards}
+      setSelectedCards={props.setSelectedCards}
+      highlightedCards={props.highlightedCards}
+      setHighlightedCards={props.setHighlightedCards}
           type="chili"
           id="smart"
         />
         <Card
           selectable={true}
-          gameState={gameState}
-          setGameState={setGameState}
+          gameStatus={props.gameStatus}
+      setGameStatus={props.setGameStatus}
+      tradeStatus={props.tradeStatus}
+      setTradeStatus={props.setTradeStatus}
+      justPlanted={props.justPlanted}
+      setJustPlanted={props.setJustPlanted}
+      selectedCards={props.selectedCards}
+      setSelectedCards={props.setSelectedCards}
+      highlightedCards={props.highlightedCards}
+      setHighlightedCards={props.setHighlightedCards}
           type="chili"
         />
         <Card
           selectable={true}
-          gameState={gameState}
-          setGameState={setGameState}
-          type="chili"
-        />
-        <Card
-          selectable={true}
-          gameState={gameState}
-          setGameState={setGameState}
-          type="chili"
-        />
-        <Card
-          selectable={true}
-          gameState={gameState}
-          setGameState={setGameState}
-          type="chili"
-        />
-        <Card
-          selectable={true}
-          gameState={gameState}
-          setGameState={setGameState}
-          type="chili"
-        />
-        <Card
-          selectable={true}
-          gameState={gameState}
-          setGameState={setGameState}
+          gameStatus={props.gameStatus}
+      setGameStatus={props.setGameStatus}
+      tradeStatus={props.tradeStatus}
+      setTradeStatus={props.setTradeStatus}
+      justPlanted={props.justPlanted}
+      setJustPlanted={props.setJustPlanted}
+      selectedCards={props.selectedCards}
+      setSelectedCards={props.setSelectedCards}
+      highlightedCards={props.highlightedCards}
+      setHighlightedCards={props.setHighlightedCards}
           type="chili"
         />
       </div>

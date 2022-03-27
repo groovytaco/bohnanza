@@ -11,45 +11,31 @@ import "./ActiveGame.css";
 
 function ActiveGame() {
   //=====================Initialize game state=====================
-  const [gameState, setGameState] = useState({
-    myCoinCount: 0,
-    gameStatus: "plantSecondOrFlip2",
-    tradeStatus: "notTrading",
-    justPlanted: false,
-    selectedCards: [],
-    highlightedCards: [],
-  });
+  const [myCoinCount, setMyCoinCount] = useState(0);
+  const [gameStatus, setGameStatus] = useState("plantSecondOrFlip2");
+  const [tradeStatus, setTradeStatus] = useState("notTrading");
+  const [highlightedCards, setHighlightedCards] = useState([]);
+  const [justPlanted, setJustPlanted] = useState(false);
+  const [selectedCards, setSelectedCards] = useState([]);
+
   //=====================Once all selected cards have been planted reset justPlanted bool=====================
   useEffect(() => {
-    if (gameState.selectedCards.length === 0 && gameState.justPlanted) {
-      setGameState({
-        ...gameState,
-        justPlanted: false,
-      });
-    }
-  }, [gameState.justPlanted]);
+    if (selectedCards.length === 0 && justPlanted) setJustPlanted(false);
+  }, [justPlanted, selectedCards]);
   //=====================Once trade has been confirmed or canceled reset tradeStatus=====================
   useEffect(() => {
-    if (gameState.selectedCards.length === 0) {
-      if (
-        gameState.tradeStatus === "confirmTrade" ||
-        gameState.tradeStatus === "cancelTrade"
-      )
-        setGameState({
-          ...gameState,
-          finishTrade: false,
-          tradeStatus: "notTrading",
-        });
-    }
-  }, [gameState.tradeStatus]);
+    console.log({ tradeStatus });
+    if (
+      selectedCards.length === 0 &&
+      (tradeStatus === "confirmTrade" || tradeStatus === "cancelTrade")
+    )
+      setTradeStatus("notTrading");
+  }, [tradeStatus, selectedCards]);
   //=====================Handle next turn button=====================
   function nextTurn() {
-    if (gameState.gameStatus === "flipped2Cards") {
-      if (gameState.highlightedCards.length === 0) {
-        setGameState({
-          ...gameState,
-          gameStatus: "plantSecondOrFlip2",
-        });
+    if (gameStatus === "flipped2Cards") {
+      if (highlightedCards.length === 0) {
+        setGameStatus("plantSecondOrFlip2");
       }
     }
   }
@@ -77,29 +63,77 @@ function ActiveGame() {
         rightBeanType="blue"
         rightCardCount={7}
       />
-      <Deck gameState={gameState} setGameState={setGameState} />
-      <TradeTable gameState={gameState} setGameState={setGameState} />
+      <Deck
+        gameStatus={gameStatus}
+        setGameStatus={setGameStatus}
+        tradeStatus={tradeStatus}
+        justPlanted={justPlanted}
+        selectedCards={selectedCards}
+        setSelectedCards={setSelectedCards}
+        highlightedCards={highlightedCards}
+        setHighlightedCards={setHighlightedCards}
+      />
+      <TradeTable
+        tradeStatus={tradeStatus}
+        setTradeStatus={setTradeStatus}
+        justPlanted={justPlanted}
+        selectedCards={selectedCards}
+        setSelectedCards={setSelectedCards}
+        highlightedCards={highlightedCards}
+        setHighlightedCards={setHighlightedCards}
+      />
       <BeanField
-        gameState={gameState}
-        setGameState={setGameState}
         className="leftField"
-        cardCount={9}
+        cardCount={0}
         fieldNum={1}
-        type="coffee"
+        type=""
         x={-7.8}
         y={-18}
+        myCoinCount={myCoinCount}
+        setMyCoinCount={setMyCoinCount}
+        gameStatus={gameStatus}
+        setGameStatus={setGameStatus}
+        tradeStatus={tradeStatus}
+        justPlanted={justPlanted}
+        setJustPlanted={setJustPlanted}
+        selectedCards={selectedCards}
+        setSelectedCards={setSelectedCards}
+        highlightedCards={highlightedCards}
+        setHighlightedCards={setHighlightedCards}
       />
       <BeanField
-        gameState={gameState}
-        setGameState={setGameState}
         className="rightField"
-        cardCount={3}
+        cardCount={0}
         fieldNum={2}
-        type="cocoa"
+        type=""
         x={1.7}
         y={-18}
+        myCoinCount={myCoinCount}
+        setMyCoinCount={setMyCoinCount}
+        gameStatus={gameStatus}
+        setGameStatus={setGameStatus}
+        tradeStatus={tradeStatus}
+        justPlanted={justPlanted}
+        setJustPlanted={setJustPlanted}
+        selectedCards={selectedCards}
+        setSelectedCards={setSelectedCards}
+        highlightedCards={highlightedCards}
+        setHighlightedCards={setHighlightedCards}
       />
-      <PlayerHand gameState={gameState} setGameState={setGameState} />
+      <PlayerHand
+        myCoinCount={myCoinCount}
+        setMyCoinCount={setMyCoinCount}
+        gameStatus={gameStatus}
+        setGameStatus={setGameStatus}
+        tradeStatus={tradeStatus}
+        setTradeStatus={setTradeStatus}
+        justPlanted={justPlanted}
+        setJustPlanted={setJustPlanted}
+        selectedCards={selectedCards}
+        setSelectedCards={setSelectedCards}
+        highlightedCards={highlightedCards}
+        setHighlightedCards={setHighlightedCards}
+      />
       <button
         id="nextTurn"
         style={{
@@ -112,7 +146,7 @@ function ActiveGame() {
         }}
         onClick={nextTurn}
       ></button>
-      <h1 id="gameStatus">{gameState.myCoinCount}</h1>
+      <h1 id="gameStatus">{myCoinCount}</h1>
       <Instructions />
     </div>
   );
