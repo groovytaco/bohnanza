@@ -10,18 +10,11 @@ import chili from "../Beans/Chili.jpg";
 import blue from "../Beans/Blue.jpg";
 import wax from "../Beans/Wax.jpg";
 import coffee from "../Beans/Coffee.jpg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Card.css";
 
 function Card(props) {
   //=====================Initialize css variables for setState=====================
-  let tempHidden;
-  if (props.type === "") {
-    tempHidden = true;
-  } else {
-    tempHidden = false;
-  }
-  const [hidden, setHidden] = useState(tempHidden);
   let tempBoxShadow = "";
   if (props.highlighted) {
     tempBoxShadow = "0 0 0 0.3vw #fde32c";
@@ -31,11 +24,13 @@ function Card(props) {
   const [boxShadow, setBoxShadow] = useState(tempBoxShadow);
   //=====================Initialize state variables based on props=====================
   const [highlighted, setHighlighted] = useState(props.highlighted);
-  const [type, setType] = useState(props.type);
   const [selected, setSelected] = useState(false);
   const [opacity, setOpacity] = useState(1);
+  const [hidden, setHidden] = useState(props.type === "");
   //=====================Handle "selected" variable changing=====================
-
+  useEffect(()=>{
+    setHidden(props.type === "")
+  }, [props.type])
   //=====================Handle "justPlanted" gamestate variable changing=====================
   //if card was selected hide it and remove it from the selectedCards array in gamestate
   if (props.justPlanted) {
@@ -44,7 +39,7 @@ function Card(props) {
       let selectedCards = props.selectedCards;
       let highlightedCards = props.highlightedCards;
       for (let x in selectedCards) {
-        if (selectedCards.at(x) === type) {
+        if (selectedCards.at(x) === props.type) {
           selectedCards.splice(x, 1);
           break;
         }
@@ -52,7 +47,7 @@ function Card(props) {
       if (highlighted) {
         //remove this card from the highlightedCards array
         for (let y in highlightedCards) {
-          if (highlightedCards.at(y) === type) {
+          if (highlightedCards.at(y) === props.type) {
             highlightedCards.splice(y, 1);
             break;
           }
@@ -61,7 +56,6 @@ function Card(props) {
       props.setSelectedCards(selectedCards);
       props.setHighlightedCards(highlightedCards);
       setHidden(true);
-      setType("");
       setSelected(false);
       setOpacity(1);
     }
@@ -73,7 +67,7 @@ function Card(props) {
       let selectedCards = props.selectedCards;
       let highlightedCards = props.highlightedCards;
       for (let x in selectedCards) {
-        if (selectedCards.at(x) === type) {
+        if (selectedCards.at(x) === props.type) {
           selectedCards.splice(x, 1);
           break;
         }
@@ -81,7 +75,7 @@ function Card(props) {
       if (highlighted) {
         //remove this card from the highlightedCards array
         for (let y in highlightedCards) {
-          if (highlightedCards.at(y) === type) {
+          if (highlightedCards.at(y) === props.type) {
             highlightedCards.splice(y, 1);
             break;
           }
@@ -90,7 +84,6 @@ function Card(props) {
       props.setSelectedCards(selectedCards);
       props.setHighlightedCards(highlightedCards);
       setHidden(true);
-      setType("");
       setSelected(false);
       setOpacity(1);
     }
@@ -98,7 +91,7 @@ function Card(props) {
     if (selected) {
       let selectedCards = props.selectedCards;
       for (let x in selectedCards) {
-        if (selectedCards.at(x) === type) {
+        if (selectedCards.at(x) === props.type) {
           selectedCards.splice(x, 1);
           break;
         }
@@ -153,7 +146,7 @@ function Card(props) {
       if (selected) {
         let selectedCards = props.selectedCards;
         for (let x in selectedCards) {
-          if (selectedCards.at(x) === type) {
+          if (selectedCards.at(x) === props.type) {
             selectedCards.splice(x, 1);
             break;
           }
@@ -163,7 +156,7 @@ function Card(props) {
         setOpacity(1);
         //select card if it was not selected
       } else {
-        props.setSelectedCards(...props.selectedCards, type);
+        props.setSelectedCards(...props.selectedCards, props.type);
         setSelected(true);
         setOpacity(0.1);
       }

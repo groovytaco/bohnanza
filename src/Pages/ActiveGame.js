@@ -82,7 +82,6 @@ function ActiveGame() {
   }, [justPlanted, selectedCards]);
   //=====================Once trade has been confirmed or canceled reset tradeStatus=====================
   useEffect(() => {
-    console.log({ tradeStatus });
     if (
       selectedCards.length === 0 &&
       (tradeStatus === "confirmTrade" || tradeStatus === "cancelTrade")
@@ -144,9 +143,7 @@ function ActiveGame() {
       />
       <BeanField
         className="leftField"
-        cardCount={0}
         fieldNum={1}
-        type=""
         x={-7.8}
         y={-18}
         myCoinCount={myCoinCount}
@@ -163,9 +160,7 @@ function ActiveGame() {
       />
       <BeanField
         className="rightField"
-        cardCount={0}
         fieldNum={2}
-        type=""
         x={1.7}
         y={-18}
         myCoinCount={myCoinCount}

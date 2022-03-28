@@ -6,63 +6,54 @@ import coinImage from "../Images/coin.jpg";
 import { useState } from "react";
 
 function BeanField(props) {
+  const [coinCount, setCoinCount] = useState(0);
+  const [coinReq, setCoinReq] = useState([]);
+  const [coinTarget, setCoinTarget] = useState(0);
+  const [cardType, setCardType] = useState("");
+  const [cardCount, setCardCount] = useState(0);
   //=====================Initialize coinReq variable=====================
-  let temp = [null];
   switch (props.type) {
     case "cocoa":
-      temp = [2, 2, 3, 4];
+      setCoinReq([2, 2, 3, 4]);
       break;
     case "garden":
-      temp = [2, 2, 3];
+      setCoinReq([2, 2, 3]);
       break;
     case "red":
-      temp = [2, 3, 4, 5];
+      setCoinReq([2, 3, 4, 5]);
       break;
     case "blackEyed":
-      temp = [2, 4, 5, 6];
+      setCoinReq([2, 4, 5, 6]);
       break;
     case "soy":
-      temp = [2, 4, 6, 7];
+      setCoinReq([2, 4, 6, 7]);
       break;
     case "green":
-      temp = [3, 5, 6, 7];
+      setCoinReq([3, 5, 6, 7]);
       break;
     case "stink":
-      temp = [3, 5, 7, 8];
+      setCoinReq([3, 5, 7, 8]);
       break;
     case "chili":
-      temp = [3, 6, 8, 9];
+      setCoinReq([3, 6, 8, 9]);
       break;
     case "blue":
-      temp = [4, 6, 8, 10];
+      setCoinReq([4, 6, 8, 10]);
       break;
     case "wax":
-      temp = [4, 7, 9, 11];
+      setCoinReq([4, 7, 9, 11]);
       break;
     case "coffee":
-      temp = [4, 7, 10, 12];
+      setCoinReq([4, 7, 10, 12]);
       break;
     default:
   }
-  const [coinReq, setCoinReq] = useState(temp);
   //=====================Initialize coinCount and coinTarget variables=====================
-  //set coinCount
-  let i = 0;
-  while (props.cardCount >= temp.at(i) && i < temp.length) {
-    i++;
-  }
-  const [coinCount, setCoinCount] = useState(i);
-  //set coinTarget
-  let tempCoinTarget = 0;
-  if (coinCount < temp.length) {
-    tempCoinTarget = temp.at(coinCount);
-  } else {
-    tempCoinTarget = temp.at(temp.length - 1);
-  }
-  const [coinTarget, setCoinTarget] = useState(tempCoinTarget);
+  /*coinCount < coinReq.length
+    ? setCoinTarget(coinReq.at(coinCount))
+    : setCoinTarget(coinReq.at(coinReq.length - 1));*/
   //=====================Initialize state variable based on props=====================
-  const [cardType, setCardType] = useState(props.type);
-  const [cardCount, setCardCount] = useState(props.cardCount);
+  
 
   //initialize fieldImage based on fieldNum prop
   let fieldImage;
@@ -85,7 +76,7 @@ function BeanField(props) {
     const cards = props.selectedCards;
     if (cards.length > 0) {
       let allowPlant = true;
-      if (props.gameStatus === "trading") {
+      if (props.tradeStatus === "trading") {
         alert("Finish trade before planting");
         //Handle planting when beanField is empty
       } else if (cardType === "") {
