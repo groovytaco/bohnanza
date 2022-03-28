@@ -28,18 +28,14 @@ function Card(props) {
   } else {
     tempBoxShadow = "0 0 0 0px #fde32c";
   }
-  const [boxShadow, setBoxShadow] = useState("notTrading");
+  const [boxShadow, setBoxShadow] = useState(tempBoxShadow);
   //=====================Initialize state variables based on props=====================
   const [highlighted, setHighlighted] = useState(props.highlighted);
   const [type, setType] = useState(props.type);
   const [selected, setSelected] = useState(false);
   const [opacity, setOpacity] = useState(1);
   //=====================Handle "selected" variable changing=====================
-  if (props.selected) {
-    setOpacity(0.1);
-  } else {
-    setOpacity(1);
-  }
+
   //=====================Handle "justPlanted" gamestate variable changing=====================
   //if card was selected hide it and remove it from the selectedCards array in gamestate
   if (props.justPlanted) {
@@ -67,6 +63,7 @@ function Card(props) {
       setHidden(true);
       setType("");
       setSelected(false);
+      setOpacity(1);
     }
   }
   //=====================Handle "tradeStatus" gamestate variable changing=====================
@@ -95,6 +92,7 @@ function Card(props) {
       setHidden(true);
       setType("");
       setSelected(false);
+      setOpacity(1);
     }
   } else if (props.tradeStatus === "cancelTrade") {
     if (selected) {
@@ -107,6 +105,7 @@ function Card(props) {
       }
       props.setSelectedCards(selectedCards);
       setSelected(false);
+      setOpacity(1);
     }
   }
   //=====================Set card image based on beanType=====================
@@ -161,10 +160,12 @@ function Card(props) {
         }
         props.setSelectedCards(selectedCards);
         setSelected(false);
+        setOpacity(1);
         //select card if it was not selected
       } else {
         props.setSelectedCards(...props.selectedCards, type);
         setSelected(true);
+        setOpacity(0.1);
       }
     } else if (props.selectable && props.tradeStatus !== "notTrading") {
       console.log(props.selectable, props.tradeStatus);
