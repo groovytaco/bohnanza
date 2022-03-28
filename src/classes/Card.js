@@ -156,7 +156,7 @@ function Card(props) {
         setOpacity(1);
         //select card if it was not selected
       } else {
-        props.setSelectedCards(...props.selectedCards, props.type);
+        props.setSelectedCards([...props.selectedCards, props.type]);
         setSelected(true);
         setOpacity(0.1);
       }

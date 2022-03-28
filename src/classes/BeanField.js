@@ -3,16 +3,16 @@ import Card from "../classes/Card.js";
 import leftField from "../Images/1stBeanField.PNG";
 import rightField from "../Images/2ndBeanField.PNG";
 import coinImage from "../Images/coin.jpg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function BeanField(props) {
   const [coinCount, setCoinCount] = useState(0);
-  const [coinReq, setCoinReq] = useState([]);
+  const [coinReq, setCoinReq] = useState([0]);
   const [coinTarget, setCoinTarget] = useState(0);
   const [cardType, setCardType] = useState("");
   const [cardCount, setCardCount] = useState(0);
   //=====================Initialize coinReq variable=====================
-  switch (props.type) {
+  switch (cardType) {
     case "cocoa":
       setCoinReq([2, 2, 3, 4]);
       break;
@@ -48,13 +48,14 @@ function BeanField(props) {
       break;
     default:
   }
-  //=====================Initialize coinCount and coinTarget variables=====================
-  /*coinCount < coinReq.length
-    ? setCoinTarget(coinReq.at(coinCount))
-    : setCoinTarget(coinReq.at(coinReq.length - 1));*/
-  //=====================Initialize state variable based on props=====================
-  
-
+  useEffect(() => {
+    if(cardType && cardCount >= coinReq.at(coinCount) && coinCount < coinReq.length)
+    {
+      setCoinCount((prevCoinCount)=> prevCoinCount + 1)
+    }
+    console.log({coinReq, coinCount})
+    setCoinTarget(coinReq.at(coinCount))
+  }, [cardCount, coinReq, coinCount, cardType]);
   //initialize fieldImage based on fieldNum prop
   let fieldImage;
   if (props.fieldNum === 1) {
@@ -62,7 +63,6 @@ function BeanField(props) {
   } else if (props.fieldNum === 2) {
     fieldImage = rightField;
   }
-  //=====================Update state when the "type" variable is changed=====================
   //=====================Handle harvest button=====================
   function harvest() {
     //Update player coin total
@@ -81,32 +81,24 @@ function BeanField(props) {
         //Handle planting when beanField is empty
       } else if (cardType === "") {
         //Make sure all selected cards are the same type
+        
         const firstCard = cards.at(0);
-        for (let i = 0; i < cards.length; i++) {
-          if (cards.at(i) !== firstCard) {
-            allowPlant = false;
-          }
-        }
+        allowPlant = cards.every((card)=> card===firstCard);
         if (allowPlant) {
+          console.log({firstCard})
           setCardType(firstCard);
           setCardCount(cards.length);
           props.setJustPlanted(true);
-          props.setSelectedCards([]);
         } else {
           alert("All selected cards must match the beanfield");
         }
         //Handle planting when beanField is not empty
       } else {
         //Make sure all selected cards are the same type as the beanField
-        for (let i = 0; i < cards.length; i++) {
-          if (cards.at(i) !== cardType) {
-            allowPlant = false;
-          }
-        }
+        allowPlant = cards.every((card)=> card===cardType);
         if (allowPlant) {
           setCardCount(cardCount + cards.length);
           props.setJustPlanted(true);
-          props.setSelectedCards([]);
         } else {
           alert("All selected cards must match the beanfield");
         }
