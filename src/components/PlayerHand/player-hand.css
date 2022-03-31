@@ -1,0 +1,28 @@
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.player-hand {
+  background: rgb(69, 69, 69);
+  bottom: 0;
+  border: 1px solid white;
+  cursor: move;
+  display: flex;
+  height: fit-content;
+  justify-content: center;
+  padding: 2.5rem;
+  position: fixed;
+  right: 50%;
+  transform: translateX(-50%);
+  width: fit-content;
+}
+
+.PlayerHand .Card {
+  position: static;
+  cursor: grab;
+}
+
+.PlayerHand .Card .bean-image {
+  position: static;
+}

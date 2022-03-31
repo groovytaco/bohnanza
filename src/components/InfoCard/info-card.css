@@ -1,0 +1,57 @@
+.info-card {
+    background-color: gray;
+    color: white;
+    width: 9rem;
+}
+
+.info-card .card-image {
+    height: 7.2vw;
+}
+
+.info-card .coin-container {
+    height: 1.6vw;
+    position: relative;
+    width: 1.6vw;
+}
+
+.info-card .card-count {
+    background: rgb(60, 61, 68);
+    border-radius: 50%;
+    border: 1px solid white;
+    font-size: .75rem;
+    height: .75rem;
+    padding: .25rem;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 0;
+    transform: translate(50%, -50%);
+    vertical-align: center;
+    width: .75rem;
+}
+
+.info-card .coin-image {
+    height: 1.6vw;
+    width: 1.6vw;
+}
+
+.info-card .coin-progress {
+    background-color: rgb(60, 61, 68);
+    font-size: 1.5rem;
+    font-weight: bold;
+    height: 1.7vw;
+    text-align: center;
+}
+
+.info-card .image-container {
+    display: flex;
+    align-items: flex-end;
+}
+
+.info-card .username {
+    background-color: rgb(60, 61, 68);
+    font-size: 2rem;
+    font-weight: bold;
+    height: 2vw;
+    text-align: center;
+}
